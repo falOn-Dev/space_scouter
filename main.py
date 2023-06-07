@@ -8,4 +8,7 @@ perfect_game = [3,3,6,6,9,"true","true","true"]
 
 
 if __name__ == '__main__':
-    sh.calculate_scores(perfect_game)
+    #input_scores = sh.input_scores()
+    random_game = sh.random_scores()
+    print(random_game)
+    sh.calculate_scores(random_game)

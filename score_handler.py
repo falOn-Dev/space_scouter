@@ -1,4 +1,6 @@
 import json_handler as j
+import random
+
 
 def calculate_scores(score_values):
     cubes_top = float(score_values[0])
@@ -20,11 +22,11 @@ def calculate_scores(score_values):
 
     # Calculate the final score using the weighted values from the JSON data and inputs
     weighted_scores = (
-        cubes_top * j.get_value("Auto", "Cubes", "top")
-        + cubes_mid * j.get_value("Auto", "Cubes", "mid")
-        + cones_top * j.get_value("Auto", "Cones", "top")
-        + cones_mid * j.get_value("Auto", "Cones", "mid")
-        + gamepiece_low * j.get_value("Auto", "Gamepiece", "low")
+            cubes_top * j.get_value("Auto", "Cubes", "top")
+            + cubes_mid * j.get_value("Auto", "Cubes", "mid")
+            + cones_top * j.get_value("Auto", "Cones", "top")
+            + cones_mid * j.get_value("Auto", "Cones", "mid")
+            + gamepiece_low * j.get_value("Auto", "Gamepiece", "low")
     )
 
     if mobility_dock.lower() == "true":
@@ -36,12 +38,12 @@ def calculate_scores(score_values):
 
     # Calculate the maximum possible weighted score
     max_weighted_scores = (
-        cubes_top * j.get_value("Auto", "Cubes", "top")
-        + cubes_mid * j.get_value("Auto", "Cubes", "mid")
-        + cones_top * j.get_value("Auto", "Cones", "top")
-        + cones_mid * j.get_value("Auto", "Cones", "mid")
-        + gamepiece_low * j.get_value("Auto", "Gamepiece", "low")
-        + sum(mobility_weights)
+            cubes_top * j.get_value("Auto", "Cubes", "top")
+            + cubes_mid * j.get_value("Auto", "Cubes", "mid")
+            + cones_top * j.get_value("Auto", "Cones", "top")
+            + cones_mid * j.get_value("Auto", "Cones", "mid")
+            + gamepiece_low * j.get_value("Auto", "Gamepiece", "low")
+            + sum(mobility_weights)
     )
 
     # Calculate the final score scaled from 0 to 100
@@ -71,3 +73,24 @@ def input_scores():
 
     return score_values
 
+
+def random_scores():
+    # Generate random scores for each component
+    cubes_top = random.randint(0, 3)
+    cubes_mid = random.randint(0, 3)
+
+    cones_top = random.randint(0, 6)
+    cones_mid = random.randint(0, 6)
+
+    gamepiece_low = random.randint(0, 9)
+
+    # Randomize docking and engagement
+    mobility_dock = "true"
+    mobility_engage = random.choice(["true", "false"])
+    if mobility_engage == "false":
+        mobility_dock = "false"
+
+    mobility_exit = random.choice(["true", "false"])
+
+    # Return the randomized scores and mobility status as an array
+    return [cubes_top, cubes_mid, cones_top, cones_mid, gamepiece_low, mobility_dock, mobility_engage, mobility_exit]
