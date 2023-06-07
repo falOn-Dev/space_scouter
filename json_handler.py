@@ -13,4 +13,3 @@ def get_value(section, category, item):
     }
     return data
 
-# Call the function
