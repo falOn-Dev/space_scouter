@@ -38,7 +38,8 @@
       "link" : 0,
       "sustain" : 0,
       "coop" : 0,
-      "activation" : 0
+      "activation" : 0,
+      "win" : 0
     }
   }
 }
