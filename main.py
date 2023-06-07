@@ -3,12 +3,13 @@ import score_handler as sh
 
 values = j.get_value("Auto", "Cubes", "top")
 
-perfect_game = [3,3,6,6,9,"true","true","true"]
+perfect_game = [3,0,0,0,0,False,False,False]
 
-
+score_values = [0.15, 0.1, True, False, 0.01, True, True, False]
 
 if __name__ == '__main__':
-    #input_scores = sh.input_scores()
-    random_game = sh.random_auto()
-    print(random_game)
-    sh.calculate_auto(perfect_game)
+    weights = j.get_weights("Auto")
+    final_score = sh.calculate_scores(perfect_game,weights)
+    print(final_score)
+
+
