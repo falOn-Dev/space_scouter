@@ -2,7 +2,7 @@ import json_handler as j
 import random
 
 
-def calculate_scores(score_values):
+def calculate_auto(score_values):
     cubes_top = float(score_values[0])
     cubes_mid = float(score_values[1])
 
@@ -51,9 +51,7 @@ def calculate_scores(score_values):
 
     # Print the final score
     print("Final Score:", round(final_score, 2))
-
-
-def input_scores():
+def input_auto():
     score_values = []
 
     score_values.append(float(input("Enter the numerical score for top-level Cubes: ")))
@@ -72,9 +70,7 @@ def input_scores():
     score_values.append(mobility_exit)
 
     return score_values
-
-
-def random_scores():
+def random_auto():
     # Generate random scores for each component
     cubes_top = random.randint(0, 3)
     cubes_mid = random.randint(0, 3)
@@ -94,3 +90,7 @@ def random_scores():
 
     # Return the randomized scores and mobility status as an array
     return [cubes_top, cubes_mid, cones_top, cones_mid, gamepiece_low, mobility_dock, mobility_engage, mobility_exit]
+
+
+
+
