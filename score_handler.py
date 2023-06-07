@@ -36,11 +36,11 @@ def calculate_scores(score_values):
 
     # Calculate the maximum possible weighted score
     max_weighted_scores = (
-        1 * j.get_value("Auto", "Cubes", "top")
-        + 1 * j.get_value("Auto", "Cubes", "mid")
-        + 1 * j.get_value("Auto", "Cones", "top")
-        + 1 * j.get_value("Auto", "Cones", "mid")
-        + 1 * j.get_value("Auto", "Gamepiece", "low")
+        cubes_top * j.get_value("Auto", "Cubes", "top")
+        + cubes_mid * j.get_value("Auto", "Cubes", "mid")
+        + cones_top * j.get_value("Auto", "Cones", "top")
+        + cones_mid * j.get_value("Auto", "Cones", "mid")
+        + gamepiece_low * j.get_value("Auto", "Gamepiece", "low")
         + sum(mobility_weights)
     )
 
@@ -49,7 +49,6 @@ def calculate_scores(score_values):
 
     # Print the final score
     print("Final Score:", round(final_score, 2))
-
 
 
 def input_scores():
