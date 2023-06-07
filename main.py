@@ -11,4 +11,4 @@ if __name__ == '__main__':
     #input_scores = sh.input_scores()
     random_game = sh.random_auto()
     print(random_game)
-    sh.calculate_auto(random_game)
+    sh.calculate_auto(perfect_game)
