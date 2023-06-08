@@ -14,10 +14,9 @@ def calculate_scores(score_values, weights):
     final_score = (weighted_scores / max_weighted_scores) * 100
 
     # Ensure the final score is within the range of 0 to 100
-    final_score = min(final_score, 100)
 
     # Print the final score
-    return round(final_score,2)
+    return round(final_score,0)
 def get_weighted_score(score, weight):
     if isinstance(score, (int, float)):
         return score * weight
