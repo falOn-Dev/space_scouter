@@ -1,51 +1,50 @@
 {
-  "Auto" : {
-    "Cubes" : {
-      "top" : 0.15,
-      "mid" : 0.1
+  "Auto": {
+    "Cubes": {
+      "top": 0.15,
+      "mid": 0.1
     },
-    "Cones" : {
-      "top" : 0.2,
-      "mid" : 0.1
+    "Cones": {
+      "top": 0.2,
+      "mid": 0.1
     },
-    "Gamepiece" : {
-      "low" : 0.01
+    "Gamepiece": {
+      "low": 0.01
     },
-    "Mobility" : {
-      "dock" : 0.1,
-      "engage" : 0.23,
-      "exit" : 0.1
+    "Mobility": {
+      "dock": 0.1,
+      "engage": 0.23,
+      "exit": 0.1
     }
   },
-  "Tele" : {
-    "Cubes" : {
-      "top" : 0,
-      "mid" : 0,
-      "low" : 0
+  "Tele": {
+    "Cubes": {
+      "top": 0,
+      "mid": 0,
+      "low": 0
     },
-    "Cones" : {
-      "top" : 0,
-      "mid" : 0,
-      "low" : 0
+    "Cones": {
+      "top": 0,
+      "mid": 0,
+      "low": 0
     },
-    "Gamepiece" : {
-      "low" : 0.01
+    "Gamepiece": {
+      "low": 0.01
     },
-    "Mobility" : {
-      "cycle" : 0,
-      "dock" : 0,
-      "engage" : 0,
-      "park" : 0
+    "Mobility": {
+      "cycle": 0,
+      "dock": 0,
+      "engage": 0,
+      "park": 0
     }
   },
-  "Endgame" : {
-    "Bonus" : {
-      "link" : 0,
-      "sustain" : 0,
-      "coop" : 0,
-      "activation" : 0,
-      "win" : 0
+  "Endgame": {
+    "Bonus": {
+      "link": 0,
+      "sustain": 0,
+      "coop": 0,
+      "activation": 0,
+      "win": 0
     }
   }
 }
-
