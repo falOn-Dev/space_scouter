@@ -38,7 +38,6 @@
   },
   "Endgame": {
     "Bonus": {
-      "link": 0.25,
       "sustain": 0.1,
       "coop": 0.1,
       "activation": 0.2,
