@@ -68,7 +68,9 @@ def random_auto():
     # Return the randomized scores and mobility status as an array
     return [cubes_top, cubes_mid, cones_top, cones_mid, gamepiece_low, mobility_dock, mobility_engage, mobility_exit]
 
-def create_score_file(team_number, match_number, score_auto, score_tele, score_endgame):
+import os
+
+def create_score_file(team_number, score_auto, score_tele, score_endgame):
     auto_weights = j.get_weights("Auto")
     teleop_weights = j.get_weights("Tele")
     endgame_weights = j.get_weights("Endgame")
@@ -79,7 +81,6 @@ def create_score_file(team_number, match_number, score_auto, score_tele, score_e
 
     output = {
         "team_number": team_number,
-        "match_number": match_number,
         "scores": {
             "auto": auto_score,
             "teleop": teleop_score,
@@ -92,11 +93,23 @@ def create_score_file(team_number, match_number, score_auto, score_tele, score_e
         }
     }
 
+    scores_directory = "scores/"
+    existing_matches = []
+    for filename in os.listdir(scores_directory):
+        if filename.endswith(".json"):
+            existing_matches.append(int(filename.split("_")[1].split(".")[0]))
+
+    match_number = 1
+    while match_number in existing_matches:
+        match_number += 1
+
+    output["match_number"] = match_number
     file_contents = json.dumps(output, indent=4)
-    path = "scores/" + str(team_number) + "_" + str(match_number) + ".json"
+    path = scores_directory + str(team_number) + "_" + str(match_number) + ".json"
 
     with open(path, "w+") as file:
-        json.dump(file_contents, file)
+        file.write(file_contents)
+
 
 
 
