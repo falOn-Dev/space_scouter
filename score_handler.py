@@ -115,3 +115,24 @@ def create_score_file(team_number, score_auto, score_tele, score_endgame):
 
     with open(path, "w+") as file:
         file.write(file_contents)
+
+
+def interpolate_score_placement(score: int, category: str):
+    with open('rankings/'+category.lower()+'_rankings.json', 'r') as file:
+        json_data = file.read()
+
+    data = json.loads(json_data)
+
+    placement = None
+
+    # Find the ranks above and below the given score
+    ranks_above = [int(rank) for rank in data.keys() if data[rank] > score]
+    ranks_below = [int(rank) for rank in data.keys() if data[rank] < score]
+
+    if ranks_above and ranks_below:
+        # Interpolate the placement
+        rank_above = max(ranks_above)
+        rank_below = min(ranks_below)
+        placement = rank_below + (rank_above - rank_below) * (score - data[str(rank_below)]) / (data[str(rank_above)] - data[str(rank_below)])
+
+    return round(placement)
