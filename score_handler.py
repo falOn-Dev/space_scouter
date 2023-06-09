@@ -1,3 +1,5 @@
+import json
+
 import json_handler as j
 import random
 
@@ -65,6 +67,38 @@ def random_auto():
 
     # Return the randomized scores and mobility status as an array
     return [cubes_top, cubes_mid, cones_top, cones_mid, gamepiece_low, mobility_dock, mobility_engage, mobility_exit]
+
+def create_score_file(team_number, match_number, score_auto, score_tele, score_endgame):
+    auto_weights = j.get_weights("Auto")
+    teleop_weights = j.get_weights("Tele")
+    endgame_weights = j.get_weights("Endgame")
+
+    auto_score = calculate_scores(score_auto, auto_weights)
+    teleop_score = calculate_scores(score_tele, teleop_weights)
+    endgame_score = calculate_scores(score_endgame, endgame_weights)
+
+    output = {
+        "team_number": team_number,
+        "match_number": match_number,
+        "scores": {
+            "auto": auto_score,
+            "teleop": teleop_score,
+            "endgame": endgame_score
+        },
+        "raw_scores": {
+            "auto": score_auto,
+            "teleop": score_tele,
+            "endgame": score_endgame
+        }
+    }
+
+    file_contents = json.dumps(output, indent=4)
+    path = "scores/" + str(team_number) + "_" + str(match_number) + ".json"
+
+    with open(path, "w+") as file:
+        json.dump(file_contents, file)
+
+
 
 
 

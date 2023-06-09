@@ -19,32 +19,30 @@
   },
   "Tele": {
     "Cubes": {
-      "top": 0,
-      "mid": 0,
-      "low": 0
+      "top": 0.25,
+      "mid": 0.125
     },
     "Cones": {
-      "top": 0,
-      "mid": 0,
-      "low": 0
+      "top": 0.3125,
+      "mid": 0.25
     },
     "Gamepiece": {
-      "low": 0.01
+      "low": 0.0625
     },
     "Mobility": {
-      "cycle": 0,
-      "dock": 0,
-      "engage": 0,
-      "park": 0
+      "cycle": 0.125,
+      "dock": 0.125,
+      "engage": 0.125,
+      "park": 0.125
     }
   },
   "Endgame": {
     "Bonus": {
-      "link": 0,
-      "sustain": 0,
-      "coop": 0,
-      "activation": 0,
-      "win": 0
+      "link": 0.25,
+      "sustain": 0.1,
+      "coop": 0.1,
+      "activation": 0.2,
+      "win": 0.35
     }
   }
 }
