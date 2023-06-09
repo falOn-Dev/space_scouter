@@ -75,6 +75,30 @@ def random_auto():
     # Return the randomized scores and mobility status as an array
     return [cubes_top, cubes_mid, cones_top, cones_mid, gamepiece_low, mobility_dock, mobility_engage, mobility_exit]
 
+def random_tele():
+    # Generate random scores for each component
+    cubes_top = random.randint(0, 3)
+    cubes_mid = random.randint(0, 3)
+
+    cones_top = random.randint(0, 6)
+    cones_mid = random.randint(0, 6)
+
+    gamepiece_low = random.randint(0, 9)
+
+    mobility_cycle = random.randint(10,25)
+
+    # Randomize docking and engagement
+    mobility_dock = True
+    mobility_engage = random.choice([True, False])
+
+    if not mobility_engage:
+        mobility_dock = False
+
+    mobility_exit = random.choice([True, False])
+
+    # Return the randomized scores and mobility status as an array
+    return [cubes_top, cubes_mid, cones_top, cones_mid, gamepiece_low, mobility_cycle, mobility_engage, mobility_exit]
+
 
 def create_score_file(team_number, score_auto, score_tele, score_endgame):
     auto_weights = j.get_weights("Auto")
@@ -123,7 +147,7 @@ def interpolate_score_placement(score: int, category: str):
 
     data = json.loads(json_data)
 
-    placement = None
+    placement = 0
 
     # Find the ranks above and below the given score
     ranks_above = [int(rank) for rank in data.keys() if data[rank] > score]

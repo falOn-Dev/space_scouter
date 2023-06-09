@@ -11,7 +11,11 @@ perfect_endgame = [5, True, True, True, True]
 score_values = [0.15, 0.1, True, False, 0.01, True, True, False]
 
 if __name__ == '__main__':
+#    for i in range(50):
+ #       sh.create_score_file(2537, sh.random_auto(), sh.random_tele(), perfect_endgame)
+    print(sh.interpolate_score_placement(410, "teleop"))
+    #rh.ranker("teleop")
+    #rh.ranker("auto")
 
-    #rh.auto_ranker()
-    print(sh.interpolate_score_placement(130, "auto"))
+
 
