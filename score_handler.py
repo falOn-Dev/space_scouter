@@ -1,7 +1,7 @@
 import json
-
 import json_handler as j
 import random
+import os
 
 
 def calculate_scores(score_values, weights):
@@ -18,7 +18,9 @@ def calculate_scores(score_values, weights):
     # Ensure the final score is within the range of 0 to 100
 
     # Print the final score
-    return round(final_score,0)
+    return round(final_score, 0)
+
+
 def get_weighted_score(score, weight):
     if isinstance(score, (int, float)):
         return score * weight
@@ -28,6 +30,8 @@ def get_weighted_score(score, weight):
         return 100 if score.lower() == "true" else 0
     else:
         return 0
+
+
 def input_auto():
     score_values = []
 
@@ -47,6 +51,8 @@ def input_auto():
     score_values.append(mobility_exit)
 
     return score_values
+
+
 def random_auto():
     # Generate random scores for each component
     cubes_top = random.randint(0, 3)
@@ -58,17 +64,17 @@ def random_auto():
     gamepiece_low = random.randint(0, 9)
 
     # Randomize docking and engagement
-    mobility_dock = "true"
-    mobility_engage = random.choice(["true", "false"])
-    if mobility_engage == "false":
-        mobility_dock = "false"
+    mobility_dock = True
+    mobility_engage = random.choice([True, False])
 
-    mobility_exit = random.choice(["true", "false"])
+    if not mobility_engage:
+        mobility_dock = False
+
+    mobility_exit = random.choice([True, False])
 
     # Return the randomized scores and mobility status as an array
     return [cubes_top, cubes_mid, cones_top, cones_mid, gamepiece_low, mobility_dock, mobility_engage, mobility_exit]
 
-import os
 
 def create_score_file(team_number, score_auto, score_tele, score_endgame):
     auto_weights = j.get_weights("Auto")
@@ -109,13 +115,3 @@ def create_score_file(team_number, score_auto, score_tele, score_endgame):
 
     with open(path, "w+") as file:
         file.write(file_contents)
-
-
-
-
-
-
-
-
-
-
