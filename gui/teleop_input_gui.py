@@ -37,7 +37,7 @@ class TeleopInputWindow(ctk.CTkToplevel):
 
     def send_teleop_data(self):
         self.app.teleop_data = self.get_input_values()
-        self.quit()
+        self.destroy()
 
     def create_input_fields(self):
         row = 0
