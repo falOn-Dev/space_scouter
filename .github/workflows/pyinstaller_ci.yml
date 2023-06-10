@@ -43,7 +43,7 @@ jobs:
       run: |
         source .venv/bin/activate
         pip show customtkinter
-        pyinstaller --noconfirm --onedir --windowed --add-data '/home/runner/work/space_scouter/space_scouter/.venv/lib/python3.9/site-packages:site-packages/' --add-data "cfg;cfg/" --add-data "scores;scores/" --add-data "rankings;rankings/" "main.py"
+        pyinstaller --noconfirm --onedir --windowed --add-data '/home/runner/work/space_scouter/space_scouter/.venv/lib/python3.9/site-packages:site-packages/' --add-data "cfg:cfg/" --add-data "scores:scores/" --add-data "rankings:rankings/" "main.py"
 
     - name: Create release
       id: create_release
