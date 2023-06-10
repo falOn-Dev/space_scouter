@@ -23,7 +23,7 @@ jobs:
     - name: Create venv
       run: |
         python -m venv .venv
-        .venv/Scripts/activate
+        source .venv/bin/activate
 
     - name: Install dependencies
       run: |
@@ -39,6 +39,7 @@ jobs:
 
     - name: Build executable
       run: |
+        source .venv/bin/activate
         pyinstaller --noconfirm --onedir --windowed --add-data "venv/Lib/site-packages/customtkinter;customtkinter/" --add-data "cfg;cfg/" --add-data "scores;scores/" --add-data "rankings;rankings/" "main.py"
 
     - name: Create release
