@@ -23,17 +23,17 @@ jobs:
     - name: Create venv
       run: |
         python -m venv .venv
-        .venv/bin/activate.bat
+        .venv/Scripts/activate.bat
 
     - name: Install dependencies
       run: |
-        .venv/bin/activate.bat
+        .venv/Scripts/activate.bat
         python -m pip install --upgrade pip
         pip install pyinstaller
 
     - name: Install Requirements
       run: |
-        .venv/bin/activate.bat
+        .venv/Scripts/activate.bat
         pip install -r requirements.txt
 
 
@@ -41,7 +41,7 @@ jobs:
 
     - name: Build executable
       run: |
-        .venv/bin/activate.bat
+        .venv/Scripts/activate.bat
         pip show customtkinter
         pyinstaller --noconfirm --onedir --windowed --add-data '/home/runner/work/space_scouter/space_scouter/.venv/lib/python3.9/site-packages:site-packages/' --add-data "cfg:cfg/" --add-data "scores:scores/" --add-data "rankings:rankings/" "main.py"
 
