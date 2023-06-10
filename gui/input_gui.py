@@ -1,9 +1,9 @@
 from functools import partial
 import customtkinter as ctk
 from gui.auto_input_gui import AutoInputWindow
-from gui.endgame_input_gui import EndgameInputWindow
 from gui.teleop_input_gui import TeleopInputWindow
 import score_handler as score
+from json_handler import JsonHandler
 
 
 class App(ctk.CTk):
@@ -32,19 +32,21 @@ class App(ctk.CTk):
         self.auto_data = []
         self.teleop_data = []
 
+        self.json_handler = JsonHandler()
+
     def pages(self):
         self.open_auto = ctk.CTkButton(self, text="Input Auto Score",
                                        command=lambda: self.open_toplevel(AutoInputWindow))
-        self.open_auto.grid(row=0, column=0, padx=10, pady=10, sticky="ew")
+        self.open_auto.grid(row=0, column=0, padx=5, pady=10, sticky="ew")
 
-        self.test_auto = ctk.CTkButton(self, text="Test", command=lambda: print(self.auto_data))
+        self.test_auto = ctk.CTkButton(self, text="Print", command=lambda: print(self.auto_data))
         self.test_auto.grid(row=1, column=0, sticky="sw", padx=10, pady=10)
 
-        self.open_teleop = ctk.CTkButton(self, text="Input Teleop Score",
+        self.open_teleop = ctk.CTkButton(self, text="Input Tele Score",
                                          command=lambda: self.open_toplevel(TeleopInputWindow))
-        self.open_teleop.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
+        self.open_teleop.grid(row=0, column=1, padx=5, pady=10, sticky="ew")
 
-        self.test_teleop = ctk.CTkButton(self, text="Test", command=lambda: print(self.teleop_data))
+        self.test_teleop = ctk.CTkButton(self, text="Print", command=lambda: print(self.teleop_data))
         self.test_teleop.grid(row=1, column=1, sticky="ew", padx=10, pady=10)
 
     def open_toplevel(self, window):
@@ -69,10 +71,13 @@ class App(ctk.CTk):
         self.checkbox4 = ctk.CTkCheckBox(self.endgame_frame, text="Win")
         self.checkbox4.grid(row=1, column=1, padx=10, pady=5, sticky="w")
 
+    def settings_box(self):
+        self.settings_frame = ctk.CTkFrame(master=self)
+        self.settings_frame.grid(row=4, column=3, rowspan=2, padx=10, pady=10, sticky="nsew")
+
     def output(self):
         self.team_number = ctk.CTkEntry(self, placeholder_text="Team Number")
-        self.team_number.grid(row=999, column=0, padx=10, pady=10, sticky="sw")
-
+        self.team_number.grid(row=999, column=0, padx=10, pady=5, sticky="sw")
         def calculate_score():
             self.endgame_data.append(self.checkbox1.get())
             self.endgame_data.append(self.checkbox2.get())
@@ -88,8 +93,4 @@ class App(ctk.CTk):
 
 
         self.calculate_final = ctk.CTkButton(self, text="Calculate Score", command=calculate_score)
-        self.calculate_final.grid(row=1000, column=0, padx=20, pady=20, sticky="sw")
-
-
-app = App()
-app.mainloop()
+        self.calculate_final.grid(row=1000, column=0, padx=20, pady=(5,20), sticky="sw")

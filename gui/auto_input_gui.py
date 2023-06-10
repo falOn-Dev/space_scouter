@@ -34,7 +34,7 @@ class AutoInputWindow(ctk.CTkToplevel):
 
     def send_auto_data(self):
         self.app.auto_data = self.get_input_values()
-        self.destroy()
+        self.quit()
 
     def create_input_fields(self):
         row = 0

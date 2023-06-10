@@ -1,7 +1,7 @@
 import json_handler as j
 from gui.input_gui import App
 
-values = j.get_value("Auto", "Cubes", "top")
+#values = j.get_value("Auto", "Cubes", "top")
 
 perfect_auto = [3, 3, 6, 6, 9, True, True, True]
 perfect_tele = [3, 3, 6, 6, 9, 15, True, True, True]
