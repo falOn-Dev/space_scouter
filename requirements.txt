@@ -1,1 +1,2 @@
 pandas~=2.0.2
+customtkinter~=5.1.3

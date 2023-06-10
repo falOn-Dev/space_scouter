@@ -100,6 +100,20 @@ def random_tele():
     return [cubes_top, cubes_mid, cones_top, cones_mid, gamepiece_low, mobility_cycle, mobility_engage, mobility_exit]
 
 
+def random_endgame():
+    # Randomize the endgame status
+    endgame_dock = random.choice([True, False])
+    endgame_engage = random.choice([True, False])
+    endgame_exit = random.choice([True, False])
+    endgame_park = random.choice([True, False])
+
+    if not endgame_dock:
+        endgame_exit = False
+
+    # Return the randomized endgame status as an array
+    return [endgame_dock, endgame_engage, endgame_exit, endgame_park]
+
+
 def create_score_file(team_number, score_auto, score_tele, score_endgame):
     auto_weights = j.get_weights("Auto")
     teleop_weights = j.get_weights("Tele")
