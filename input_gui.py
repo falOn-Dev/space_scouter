@@ -4,7 +4,7 @@ import customtkinter as ctk
 
 
 class AutoInputWindow(ctk.CTkToplevel):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, app, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.engaged_checkbox = None
         self.docked_checkbox = None
@@ -28,9 +28,17 @@ class AutoInputWindow(ctk.CTkToplevel):
 
         self.grid_rowconfigure(999, weight=1)
 
+        self.app = app
+
+
+
         self.create_input_fields()
         self.create_checkboxes()
 
+
+    def send_auto_data(self):
+        self.app.auto_data = self.get_input_values()
+        self.destroy()
     def create_input_fields(self):
         row = 0
 
@@ -125,6 +133,9 @@ class AutoInputWindow(ctk.CTkToplevel):
         calculate_button = ctk.CTkButton(self, text="Calculate", command=partial(self.print_input_values))
         calculate_button.grid(row=999, column=0, sticky="sw", padx=20, pady=20)
 
+        send_button = ctk.CTkButton(self, text="Complete", command=self.send_auto_data)
+        send_button.grid(row=999, column=4, sticky="se", padx=20, pady=20)
+
         self.top_cubes_value = top_cubes_value
         self.mid_cubes_value = mid_cubes_value
         self.top_cones_value = top_cones_value
@@ -195,12 +206,17 @@ class App(ctk.CTk):
         self.title("Space Scouter")
 
         self.button_1 = ctk.CTkButton(self, text="Input Auto Score", command=lambda: self.open_toplevel(AutoInputWindow))
-        self.button_1.pack(side="top", padx=10, pady=10)
+        self.button_1.grid(row=0, column=0, padx=10, pady=10)
+
+        self.test_button = ctk.CTkButton(self, text="Test", command=lambda: print(self.auto_data))
+        self.test_button.grid(row=999, column=0, sticky="sw", padx=20, pady=20)
 
         self.toplevel_window = None
 
+        self.auto_data = []
+
     def open_toplevel(self, window):
         if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
-            self.toplevel_window = window(self)  # create window if it's None or destroyed
+            self.toplevel_window = window(self, self)  # create window if it's None or destroyed
         else:
             self.toplevel_window.focus()  # if window exists, focus it
