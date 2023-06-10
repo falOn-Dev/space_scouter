@@ -1,7 +1,9 @@
 import json
 import random
 import os
+from json_handler import JsonHandler
 
+j = JsonHandler()
 
 def calculate_scores(score_values, weights):
     # Normalize the weights to ensure they sum up to 1
