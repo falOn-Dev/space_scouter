@@ -45,24 +45,8 @@ jobs:
         pip show customtkinter
         pyinstaller --noconfirm --onedir --windowed --add-data '/home/runner/work/space_scouter/space_scouter/.venv/lib/python3.9/site-packages:site-packages/' --add-data "cfg:cfg/" --add-data "scores:scores/" --add-data "rankings:rankings/" "main.py"
 
-    - name: Create release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v2
       with:
-        tag_name: v${{ github.run_number }}
-        release_name: Release ${{ github.run_number }}
-        body: |
-          This is the release of the executable.
-
-    - name: Upload release asset
-      id: upload_release_asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/main/main.exe
-        asset_name: main.exe
-        asset_content_type: application/octet-stream
+        name: Executable
+        path: dist/main/main.exe
