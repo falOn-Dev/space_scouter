@@ -1,7 +1,5 @@
 import json_handler as j
-import score_handler as sh
-import ranking_handler as rh
-from input_gui import App
+from gui.input_gui import App
 
 values = j.get_value("Auto", "Cubes", "top")
 
