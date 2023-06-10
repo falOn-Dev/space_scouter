@@ -45,8 +45,11 @@ jobs:
         pip show customtkinter
         pyinstaller --noconfirm --onedir --windowed --add-data '/home/runner/work/space_scouter/space_scouter/.venv/lib/python3.9/site-packages:site-packages/' --add-data "cfg:cfg/" --add-data "scores:scores/" --add-data "rankings:rankings/" "main.py"
 
-    - name: Upload build artifact
-      uses: actions/upload-artifact@v3
+    - name: Create ZIP artifact
+      run: zip -r artifact.zip dist/main
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
       with:
-        name: Executable
-        path: dist/main/main.exe
+        name: Release
+        path: artifact.zip
