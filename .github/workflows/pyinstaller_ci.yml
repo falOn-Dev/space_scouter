@@ -45,8 +45,12 @@ jobs:
         pip show customtkinter
         pyinstaller --noconfirm --onedir --windowed --add-data 'C:\hostedtoolcache\windows\python\3.9.13\x64\lib\site-packages;site-packages/' --add-data "cfg;cfg/" --add-data "scores;scores/" --add-data "rankings;rankings/" "main.py"
 
+    - name: Create ZIP artifact
+      run: Compress-Archive -Path dist/main -DestinationPath artifact.zip
+
+
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: Release
-        path: dist/main
+        path: artifact.zip
