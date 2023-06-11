@@ -13,7 +13,7 @@ class TeleopInputWindow(ctk.CTkToplevel):
         self.mid_cones_value = None
         self.mid_cubes_value = None
         self.top_cubes_value = None
-        self.exited_checkbox = None
+        self.parked_checkbox = None
         self.cycle_value = None
 
         self.geometry("600x500")
@@ -37,7 +37,7 @@ class TeleopInputWindow(ctk.CTkToplevel):
 
     def send_teleop_data(self):
         self.app.teleop_data = self.get_input_values()
-        self.quit()
+        self.destroy()
 
     def create_input_fields(self):
         row = 0
@@ -168,12 +168,12 @@ class TeleopInputWindow(ctk.CTkToplevel):
         engaged_checkbox = ctk.CTkCheckBox(self, text="Engaged")
         engaged_checkbox.grid(row=row + 1, column=0, pady=10)
 
-        exited_checkbox = ctk.CTkCheckBox(self, text="Exited")
-        exited_checkbox.grid(row=row + 2, column=0, pady=10)
+        parked_checkbox = ctk.CTkCheckBox(self, text="Parked")
+        parked_checkbox.grid(row=row + 2, column=0, pady=10)
 
         self.docked_checkbox = docked_checkbox
         self.engaged_checkbox = engaged_checkbox
-        self.exited_checkbox = exited_checkbox
+        self.parked_checkbox = parked_checkbox
 
     def top_cubes_up_command(self, label):
         label.configure(text=str(int(label.cget("text")) + 1))
@@ -195,7 +195,7 @@ class TeleopInputWindow(ctk.CTkToplevel):
         # Get the values of the checkboxes
         docked_value = bool(self.docked_checkbox.get())
         engaged_value = bool(self.engaged_checkbox.get())
-        exited_value = bool(self.exited_checkbox.get())
+        parked_value = bool(self.parked_checkbox.get())
 
         # Append the values to the array
         input_values.append(top_cubes_value)
@@ -206,7 +206,7 @@ class TeleopInputWindow(ctk.CTkToplevel):
         input_values.append(cycle_value)
         input_values.append(docked_value)
         input_values.append(engaged_value)
-        input_values.append(exited_value)
+        input_values.append(parked_value)
 
         return input_values
 

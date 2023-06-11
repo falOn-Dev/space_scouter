@@ -1,0 +1,56 @@
+name: PyInstaller CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+
+    - name: Create venv
+      run: |
+        python -m venv .venv
+        .venv/Scripts/activate.bat
+
+    - name: Install dependencies
+      run: |
+        .venv/Scripts/activate.bat
+        python -m pip install --upgrade pip
+        pip install pyinstaller
+
+    - name: Install Requirements
+      run: |
+        .venv/Scripts/activate.bat
+        pip install -r requirements.txt
+
+
+
+
+    - name: Build executable
+      run: |
+        .venv/Scripts/activate.bat
+        pip show customtkinter
+        pyinstaller --noconfirm --onedir --windowed --add-data 'C:\hostedtoolcache\windows\python\3.9.13\x64\lib\site-packages\customtkinter;customtkinter/' --add-data "cfg;cfg/" --add-data "scores;scores/" --add-data "rankings;rankings/" "main.py"
+
+    - name: Create ZIP artifact
+      run: Compress-Archive -Path dist/main -DestinationPath artifact.zip
+
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: Release
+        path: artifact.zip

@@ -6,6 +6,7 @@ import config_utils as cu
 class JsonHandler:
     def __init__(self):
         self.raw = None
+        self.read_json("charged_up.json")
 
     def read_json(self, filepath):
         self.raw = pd.read_json("cfg/"+filepath)
