@@ -7,11 +7,10 @@ j = JsonHandler()
 
 def calculate_scores(score_values, weights):
     # Normalize the weights to ensure they sum up to 1
-    total_weight = sum(weights)
-    normalized_weights = [weight / total_weight for weight in weights]
 
-    weighted_scores = sum(get_weighted_score(score, weight) for score, weight in zip(score_values, normalized_weights))
-    max_weighted_scores = sum(weight for weight in normalized_weights)
+
+    weighted_scores = sum(get_weighted_score(score, weight) for score, weight in zip(score_values, weights))
+    max_weighted_scores = sum(weight for weight in weights)
 
     # Calculate the final score scaled from 0 to 100
     final_score = (weighted_scores / max_weighted_scores) * 100
