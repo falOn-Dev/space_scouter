@@ -30,7 +30,7 @@
       "low": 0.0625
     },
     "Mobility": {
-      "cycle": 0.125,
+      "cycle": -0.125,
       "dock": 0.125,
       "engage": 0.125,
       "park": 0.125
