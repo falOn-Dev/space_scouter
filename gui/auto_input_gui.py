@@ -1,6 +1,6 @@
 import customtkinter as ctk
-import score_handler as score
-from json_handler import JsonHandler
+from tools import score_handler as score
+from tools.json_handler import JsonHandler
 
 class AutoInputWindow(ctk.CTkToplevel):
     def __init__(self, app, *args, **kwargs):

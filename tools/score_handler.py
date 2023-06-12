@@ -1,8 +1,7 @@
 import json
 import random
 import os
-from json_handler import JsonHandler
-
+from tools.json_handler import JsonHandler
 j = JsonHandler()
 
 def calculate_scores(score_values, weights):

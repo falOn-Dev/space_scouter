@@ -7,7 +7,7 @@ import pandas as pd
 
 def ranker(category: str):
     ranks = set()  # Use a set to disallow duplicate values
-    for filename in os.listdir('scores'):
+    for filename in os.listdir('../scores'):
         if filename.endswith('.json'):
             data = pd.read_json('scores/' + filename)
             score = data['scores'][category]
