@@ -12,8 +12,12 @@ score_values = [0.15, 0.1, True, False, 0.01, True, True, False]
 
 if __name__ == '__main__':
 
-    app = App()
+    app = App(JsonHandler())
     app.mainloop()
+
+    # j = JsonHandler()
+    # j.read_json("charged_up.json")
+    # print(j.raw)
 
 
     # for i in range(50):

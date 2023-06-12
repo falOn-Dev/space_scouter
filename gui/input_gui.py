@@ -7,7 +7,7 @@ from json_handler import JsonHandler
 
 
 class App(ctk.CTk):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, json, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.configs = None
         self.geometry("500x400")
@@ -32,8 +32,10 @@ class App(ctk.CTk):
         self.auto_data = []
         self.teleop_data = []
 
-        self.j_hand = JsonHandler()
+        self.j_hand = json  # Assign the previously initialized j_hand to the instance attribute
+
         self.update_configs()
+        self.j_hand.read_json(self.config_selector.get())  # Update the JSON file immediately
 
     def update_configs(self):
         self.configs = self.j_hand.list_configs()
@@ -84,9 +86,9 @@ class App(ctk.CTk):
         self.team_number = ctk.CTkEntry(self, placeholder_text="Team Number")
         self.team_number.grid(row=999, column=0, padx=10, pady=5, sticky="sw")
 
-        def calculate_score():
-            self.j_hand.read_json(self.config_selector.get())
 
+
+        def calculate_score():
             self.endgame_data.append(self.checkbox1.get())
             self.endgame_data.append(self.checkbox2.get())
             self.endgame_data.append(self.checkbox3.get())
@@ -107,3 +109,6 @@ class App(ctk.CTk):
 
         self.config_selector = ctk.CTkOptionMenu(self, values=self.configs)
         self.config_selector.grid(row=1000, column=3, padx=10, pady=5, sticky="se")
+
+        self.j_hand.read_json(self.config_selector.get())
+
