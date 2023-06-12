@@ -1,15 +1,14 @@
 import os
 import pandas as pd
-import config_utils as cu
 
 
 class JsonHandler:
     def __init__(self):
         self.raw = None
-        self.read_json("charged_up.json")
 
     def read_json(self, filepath):
         self.raw = pd.read_json("cfg/"+filepath)
+        print("Config changed to: " + filepath)
 
     def get_weights(self, section):
         values = []
@@ -20,6 +19,15 @@ class JsonHandler:
             elif pd.notnull(item):
                 values.append(item)
         return values
+
+    def list_configs(self):
+        files = []
+        with os.scandir("cfg") as entries:
+            for entry in entries:
+                if entry.is_file():
+                    files.append(entry.name)
+
+        return files
 
     def get_value(self, section, category, item):
         data = self.raw[section][category][item]

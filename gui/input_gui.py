@@ -9,6 +9,7 @@ from json_handler import JsonHandler
 class App(ctk.CTk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.configs = None
         self.geometry("500x400")
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
@@ -19,7 +20,6 @@ class App(ctk.CTk):
         self.grid_columnconfigure(3, weight=1)
         self.grid_rowconfigure(999, weight=1)
         self.grid_rowconfigure(998, weight=1)
-
 
         self.endgame_data = []
 
@@ -32,7 +32,12 @@ class App(ctk.CTk):
         self.auto_data = []
         self.teleop_data = []
 
-        self.json_handler = JsonHandler()
+        self.j_hand = JsonHandler()
+        self.update_configs()
+
+    def update_configs(self):
+        self.configs = self.j_hand.list_configs()
+        self.config_selector.configure(values=self.configs)
 
     def pages(self):
         self.open_auto = ctk.CTkButton(self, text="Input Auto Score",
@@ -78,11 +83,17 @@ class App(ctk.CTk):
     def output(self):
         self.team_number = ctk.CTkEntry(self, placeholder_text="Team Number")
         self.team_number.grid(row=999, column=0, padx=10, pady=5, sticky="sw")
+
         def calculate_score():
+            self.j_hand.read_json(self.config_selector.get())
+
             self.endgame_data.append(self.checkbox1.get())
             self.endgame_data.append(self.checkbox2.get())
             self.endgame_data.append(self.checkbox3.get())
             self.endgame_data.append(self.checkbox4.get())
+
+            self.auto_data = self.j_hand.get_weights("Auto")
+            self.teleop_data = self.j_hand.get_weights("Teleop")
 
             score.create_score_file(
                 int(self.team_number.get()),
@@ -91,6 +102,8 @@ class App(ctk.CTk):
                 self.endgame_data
             )
 
-
         self.calculate_final = ctk.CTkButton(self, text="Calculate Score", command=calculate_score)
-        self.calculate_final.grid(row=1000, column=0, padx=20, pady=(5,20), sticky="sw")
+        self.calculate_final.grid(row=1000, column=0, padx=20, pady=(5, 20), sticky="sw")
+
+        self.config_selector = ctk.CTkOptionMenu(self, values=self.configs)
+        self.config_selector.grid(row=1000, column=3, padx=10, pady=5, sticky="se")
