@@ -15,9 +15,13 @@ if __name__ == '__main__':
     app = App()
     app.mainloop()
 
+
+
     # j = JsonHandler()
-    # j.read_json("charged_up.json")
-    # print(j.raw)
+    # # print(j.raw)
+    # print(j.get_weights("Auto"))
+    # print(j.get_weights("Tele"))
+    # print(j.get_weights("Endgame"))
 
 
     # for i in range(50):

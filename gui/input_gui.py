@@ -33,7 +33,7 @@ class App(ctk.CTk):
         self.auto_data = []
         self.teleop_data = []
 
-  # Assign the previously initialized j_hand to the instance attribute
+        self.is_calculating_score = False
 
         self.update_configs()
 
@@ -87,16 +87,20 @@ class App(ctk.CTk):
         self.team_number.grid(row=999, column=0, padx=10, pady=5, sticky="sw")
 
         def calculate_score():
-            if self.config_selector.get() is not None:
-                self.j_hand.read_json(self.config_selector.get())
+
+            #self.j_hand.read_json(self.config_selector.get())
+
+            # Check if the function is already running
+            if self.is_calculating_score:
+                return
+
+            # Set the flag variable to indicate that the calculation is in progress
+            self.is_calculating_score = True
 
             self.endgame_data.append(self.checkbox1.get())
             self.endgame_data.append(self.checkbox2.get())
             self.endgame_data.append(self.checkbox3.get())
             self.endgame_data.append(self.checkbox4.get())
-
-            self.auto_data = self.j_hand.get_weights("Auto")
-            self.teleop_data = self.j_hand.get_weights("Tele")
 
             score.create_score_file(
                 int(self.team_number.get()),
@@ -105,11 +109,16 @@ class App(ctk.CTk):
                 self.endgame_data
             )
 
+            # Reset the flag variable after the calculation is done
+            self.is_calculating_score = False
+
         self.calculate_final = ctk.CTkButton(self, text="Calculate Score", command=calculate_score)
         self.calculate_final.grid(row=1000, column=0, padx=20, pady=(5, 20), sticky="sw")
 
-        self.config_selector = ctk.CTkOptionMenu(self, values=self.configs)
+        self.config_selector = ctk.CTkOptionMenu(self, values=self.configs, command=lambda event: self.j_hand.read_json(self.config_selector.get()))
         self.config_selector.grid(row=1000, column=3, padx=10, pady=5, sticky="se")
 
-        self.config_selector.set("charged_up.json")
+        self.check_config = ctk.CTkButton(self, text="Check Config", command=lambda: print(self.j_hand.raw))
+        self.check_config.grid(row=999, column=3, padx=10, pady=5, sticky="se")
 
+        self.config_selector.set("charged_up.json")
