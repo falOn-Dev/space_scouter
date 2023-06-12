@@ -1,11 +1,14 @@
 from functools import partial
 
 import customtkinter as ctk
+import score_handler as score
+from json_handler import JsonHandler
 
 
 class TeleopInputWindow(ctk.CTkToplevel):
     def __init__(self, app, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
         self.engaged_checkbox = None
         self.docked_checkbox = None
         self.low_pieces_value = None
@@ -16,7 +19,9 @@ class TeleopInputWindow(ctk.CTkToplevel):
         self.parked_checkbox = None
         self.cycle_value = None
 
-        self.geometry("600x500")
+        self.json_handler = JsonHandler()
+
+        self.geometry("550x440")
         self.title("Teleop Input")
 
         ctk.set_appearance_mode("dark")
@@ -35,9 +40,19 @@ class TeleopInputWindow(ctk.CTkToplevel):
         self.create_input_fields()
         self.create_checkboxes()
 
+        self.focus()
+
+
     def send_teleop_data(self):
         self.app.teleop_data = self.get_input_values()
+        self.app.teleop_score.configure(text=self.score_label.cget("text"))
         self.destroy()
+
+    def update_score(self):
+        raw_score = self.get_input_values()
+        scores = score.calculate_scores(raw_score, self.json_handler.get_weights("Tele"))
+        self.score_label.configure(text="Score: " + str(scores))
+
 
     def create_input_fields(self):
         row = 0
@@ -147,12 +162,11 @@ class TeleopInputWindow(ctk.CTkToplevel):
 
         self.cycle_value = cycle_time_value
 
-        calculate_button = ctk.CTkButton(self, text="Calculate", command=partial(self.print_input_values))
-        calculate_button.grid(row=999, column=0, sticky="sw", padx=20, pady=20)
+        self.score_label = ctk.CTkLabel(self, text="Score: ", anchor="center")
+        self.score_label.grid(row=999, column=0, sticky="sw", padx=20, pady=20)
 
         send_button = ctk.CTkButton(self, text="Complete", command=self.send_teleop_data)
         send_button.grid(row=999, column=4, sticky="se", padx=20, pady=20)
-
         self.top_cubes_value = top_cubes_value
         self.mid_cubes_value = mid_cubes_value
         self.top_cones_value = top_cones_value
@@ -162,13 +176,13 @@ class TeleopInputWindow(ctk.CTkToplevel):
     def create_checkboxes(self):
         row = 6
 
-        docked_checkbox = ctk.CTkCheckBox(self, text="Docked")
+        docked_checkbox = ctk.CTkCheckBox(self, text="Docked", command=self.update_score)
         docked_checkbox.grid(row=row, column=0, pady=10)
 
-        engaged_checkbox = ctk.CTkCheckBox(self, text="Engaged")
+        engaged_checkbox = ctk.CTkCheckBox(self, text="Engaged", command=self.update_score)
         engaged_checkbox.grid(row=row + 1, column=0, pady=10)
 
-        parked_checkbox = ctk.CTkCheckBox(self, text="Parked")
+        parked_checkbox = ctk.CTkCheckBox(self, text="Parked", command=self.update_score)
         parked_checkbox.grid(row=row + 2, column=0, pady=10)
 
         self.docked_checkbox = docked_checkbox
@@ -177,9 +191,12 @@ class TeleopInputWindow(ctk.CTkToplevel):
 
     def top_cubes_up_command(self, label):
         label.configure(text=str(int(label.cget("text")) + 1))
+        self.update_score()
 
     def top_cubes_down_command(self, label):
         label.configure(text=str(int(label.cget("text")) - 1))
+        self.update_score()
+
 
     def get_input_values(self):
         input_values = []

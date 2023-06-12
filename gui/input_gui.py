@@ -33,6 +33,7 @@ class App(ctk.CTk):
         self.auto_data = []
         self.teleop_data = []
 
+
         self.is_calculating_score = False
 
         self.update_configs()
@@ -44,23 +45,21 @@ class App(ctk.CTk):
     def pages(self):
         self.open_auto = ctk.CTkButton(self, text="Input Auto Score",
                                        command=lambda: self.open_toplevel(AutoInputWindow))
-        self.open_auto.grid(row=0, column=0, padx=5, pady=10, sticky="ew")
+        self.open_auto.grid(row=0, column=0, padx=5, pady=(10,0), sticky="ew")
 
-        self.test_auto = ctk.CTkButton(self, text="Print", command=lambda: print(self.auto_data))
-        self.test_auto.grid(row=1, column=0, sticky="sw", padx=10, pady=10)
+        self.auto_score = ctk.CTkLabel(self, text="Auto Score: 0", anchor="n")
+        self.auto_score.grid(row=1, column=0, sticky="ew", padx=10, pady=0)
 
         self.open_teleop = ctk.CTkButton(self, text="Input Tele Score",
                                          command=lambda: self.open_toplevel(TeleopInputWindow))
-        self.open_teleop.grid(row=0, column=1, padx=5, pady=10, sticky="ew")
+        self.open_teleop.grid(row=0, column=1, padx=5, pady=(10,0), sticky="ew")
 
-        self.test_teleop = ctk.CTkButton(self, text="Print", command=lambda: print(self.teleop_data))
-        self.test_teleop.grid(row=1, column=1, sticky="ew", padx=10, pady=10)
+        self.teleop_score = ctk.CTkLabel(self, text="Teleop Score: 0", anchor="n")
+        self.teleop_score.grid(row=1, column=1, sticky="ew", padx=10, pady=0)
 
     def open_toplevel(self, window):
         if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
             self.toplevel_window = window(self, self)
-        else:
-            self.toplevel_window.focus()
 
     def endgame_box(self):
         self.endgame_frame = ctk.CTkFrame(master=self)
@@ -81,6 +80,10 @@ class App(ctk.CTk):
     def settings_box(self):
         self.settings_frame = ctk.CTkFrame(master=self)
         self.settings_frame.grid(row=4, column=3, rowspan=2, padx=10, pady=10, sticky="nsew")
+
+    def update_scores(self):
+        self.auto_score.configure(text=f"Auto Score: {self.auto_score_val}")
+        self.teleop_score.configure(text=f"Teleop Score: {self.teleop_score_val}")
 
     def output(self):
         self.team_number = ctk.CTkEntry(self, placeholder_text="Team Number")
