@@ -12,7 +12,7 @@ score_values = [0.15, 0.1, True, False, 0.01, True, True, False]
 
 if __name__ == '__main__':
 
-    app = App(JsonHandler())
+    app = App()
     app.mainloop()
 
     # j = JsonHandler()
