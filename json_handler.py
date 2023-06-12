@@ -5,6 +5,7 @@ import pandas as pd
 class JsonHandler:
     def __init__(self):
         self.raw = None
+        self.read_json("charged_up_template.json")
 
     def read_json(self, filepath):
         self.raw = pd.read_json("cfg/"+filepath)

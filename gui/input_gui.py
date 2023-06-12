@@ -36,7 +36,6 @@ class App(ctk.CTk):
   # Assign the previously initialized j_hand to the instance attribute
 
         self.update_configs()
-        self.j_hand.read_json(self.config_selector.get())  # Update the JSON file immediately
 
     def update_configs(self):
         self.configs = self.j_hand.list_configs()
@@ -88,13 +87,16 @@ class App(ctk.CTk):
         self.team_number.grid(row=999, column=0, padx=10, pady=5, sticky="sw")
 
         def calculate_score():
+            if self.config_selector.get() is not None:
+                self.j_hand.read_json(self.config_selector.get())
+
             self.endgame_data.append(self.checkbox1.get())
             self.endgame_data.append(self.checkbox2.get())
             self.endgame_data.append(self.checkbox3.get())
             self.endgame_data.append(self.checkbox4.get())
 
             self.auto_data = self.j_hand.get_weights("Auto")
-            self.teleop_data = self.j_hand.get_weights("Teleop")
+            self.teleop_data = self.j_hand.get_weights("Tele")
 
             score.create_score_file(
                 int(self.team_number.get()),
@@ -109,4 +111,5 @@ class App(ctk.CTk):
         self.config_selector = ctk.CTkOptionMenu(self, values=self.configs)
         self.config_selector.grid(row=1000, column=3, padx=10, pady=5, sticky="se")
 
-        self.j_hand.read_json(self.config_selector.get())
+        self.config_selector.set("charged_up.json")
+
