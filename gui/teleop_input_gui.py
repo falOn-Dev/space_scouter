@@ -51,12 +51,12 @@ class TeleopInputWindow(ctk.CTkToplevel):
 
         top_cubes_up = ctk.CTkButton(self, text="+",
                                      command=lambda label=top_cubes_value: self.top_cubes_up_command(label), width=50)
-        top_cubes_up.grid(row=row, column=2, pady=(10, 0), padx=(5, 0), sticky="e")
+        top_cubes_up.grid(row=row, column=4, pady=(10, 0), padx=(5, 0), sticky="w")
 
         top_cubes_down = ctk.CTkButton(self, text="-",
                                        command=lambda label=top_cubes_value: self.top_cubes_down_command(label),
                                        width=50)
-        top_cubes_down.grid(row=row, column=4, pady=(10, 0), padx=(0, 5), sticky="w")
+        top_cubes_down.grid(row=row, column=2, pady=(10, 0), padx=(0, 5), sticky="e")
 
         row += 1
 
@@ -69,12 +69,12 @@ class TeleopInputWindow(ctk.CTkToplevel):
 
         mid_cubes_up = ctk.CTkButton(self, text="+",
                                      command=lambda label=mid_cubes_value: self.top_cubes_up_command(label), width=50)
-        mid_cubes_up.grid(row=row, column=2, pady=(10, 0), padx=(5, 0), sticky="e")
+        mid_cubes_up.grid(row=row, column=4, pady=(10, 0), padx=(5, 0), sticky="w")
 
         mid_cubes_down = ctk.CTkButton(self, text="-",
                                        command=lambda label=mid_cubes_value: self.top_cubes_down_command(label),
                                        width=50)
-        mid_cubes_down.grid(row=row, column=4, pady=(10, 0), padx=(0, 5), sticky="w")
+        mid_cubes_down.grid(row=row, column=2, pady=(10, 0), padx=(0, 5), sticky="e")
 
         row += 1
 
@@ -87,12 +87,12 @@ class TeleopInputWindow(ctk.CTkToplevel):
 
         top_cones_up = ctk.CTkButton(self, text="+",
                                      command=lambda label=top_cones_value: self.top_cubes_up_command(label), width=50)
-        top_cones_up.grid(row=row, column=2, pady=(10, 0), padx=(5, 0), sticky="e")
+        top_cones_up.grid(row=row, column=4, pady=(10, 0), padx=(5, 0), sticky="w")
 
         top_cones_down = ctk.CTkButton(self, text="-",
                                        command=lambda label=top_cones_value: self.top_cubes_down_command(label),
                                        width=50)
-        top_cones_down.grid(row=row, column=4, pady=(10, 0), padx=(0, 5), sticky="w")
+        top_cones_down.grid(row=row, column=2, pady=(10, 0), padx=(0, 5), sticky="e")
 
         row += 1
 
@@ -105,12 +105,12 @@ class TeleopInputWindow(ctk.CTkToplevel):
 
         mid_cones_up = ctk.CTkButton(self, text="+",
                                      command=lambda label=mid_cones_value: self.top_cubes_up_command(label), width=50)
-        mid_cones_up.grid(row=row, column=2, pady=(10, 0), padx=(5, 0), sticky="e")
+        mid_cones_up.grid(row=row, column=4, pady=(10, 0), padx=(5, 0), sticky="w")
 
         mid_cones_down = ctk.CTkButton(self, text="-",
                                        command=lambda label=mid_cones_value: self.top_cubes_down_command(label),
                                        width=50)
-        mid_cones_down.grid(row=row, column=4, pady=(10, 0), padx=(0, 5), sticky="w")
+        mid_cones_down.grid(row=row, column=2, pady=(10, 0), padx=(0, 5), sticky="e")
 
         row += 1
 
@@ -123,12 +123,12 @@ class TeleopInputWindow(ctk.CTkToplevel):
 
         low_pieces_up = ctk.CTkButton(self, text="+",
                                       command=lambda label=low_pieces_value: self.top_cubes_up_command(label), width=50)
-        low_pieces_up.grid(row=row, column=2, pady=(10, 0), padx=(5, 0), sticky="e")
+        low_pieces_up.grid(row=row, column=4, pady=(10, 0), padx=(5, 0), sticky="w")
 
         low_pieces_down = ctk.CTkButton(self, text="-",
                                         command=lambda label=low_pieces_value: self.top_cubes_down_command(label),
                                         width=50)
-        low_pieces_down.grid(row=row, column=4, pady=(10, 0), padx=(0, 5), sticky="w")
+        low_pieces_down.grid(row=row, column=2, pady=(10, 0), padx=(0, 5), sticky="e")
 
         row += 1
 
@@ -138,11 +138,11 @@ class TeleopInputWindow(ctk.CTkToplevel):
         cycle_time_value.grid(row=row, column=3, pady=(10, 0))
         cycle_time_up = ctk.CTkButton(self, text="+",
                                       command=lambda label=cycle_time_value: self.top_cubes_up_command(label), width=50)
-        cycle_time_up.grid(row=row, column=2, pady=(10, 0), padx=(5, 0), sticky="e")
+        cycle_time_up.grid(row=row, column=4, pady=(10, 0), padx=(5, 0), sticky="w")
         cycle_time_down = ctk.CTkButton(self, text="-",
                                         command=lambda label=cycle_time_value: self.top_cubes_down_command(label),
                                         width=50)
-        cycle_time_down.grid(row=row, column=4, pady=(10, 0), padx=(0, 5), sticky="w")
+        cycle_time_down.grid(row=row, column=2, pady=(10, 0), padx=(0, 5), sticky="e")
 
 
         self.cycle_value = cycle_time_value
