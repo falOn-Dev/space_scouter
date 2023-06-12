@@ -11,7 +11,8 @@ def calculate_scores(score_values, weights):
 
     weighted_scores = sum(get_weighted_score(score, weight) for score, weight in zip(score_values, weights))
     sum_weights = sum(weight for weight in weights)
-
+    print("scores: "+str(weighted_scores))
+    print("weights: "+str(sum_weights))
     # Calculate the final score scaled from 0 to 100
     final_score = (weighted_scores / sum_weights) * 100
 
