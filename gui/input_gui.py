@@ -1,8 +1,9 @@
+from functools import partial
 import customtkinter as ctk
 from gui.auto_input_gui import AutoInputWindow
 from gui.teleop_input_gui import TeleopInputWindow
-from tools import score_handler as score
-from tools.json_handler import JsonHandler
+import score_handler as score
+from json_handler import JsonHandler
 
 
 class App(ctk.CTk):

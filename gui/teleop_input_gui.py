@@ -1,6 +1,8 @@
+from functools import partial
+
 import customtkinter as ctk
-from tools import score_handler as score
-from tools.json_handler import JsonHandler
+import score_handler as score
+from json_handler import JsonHandler
 
 
 class TeleopInputWindow(ctk.CTkToplevel):
