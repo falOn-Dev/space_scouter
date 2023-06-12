@@ -40,7 +40,7 @@ class TeleopInputWindow(ctk.CTkToplevel):
         self.create_input_fields()
         self.create_checkboxes()
 
-        self.focus()
+        self.grab_set()
 
 
     def send_teleop_data(self):
