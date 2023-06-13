@@ -50,7 +50,7 @@ jobs:
       shell: cmd
       run: |
           mkdir dist\main\source
-          move dist\main\* dist\main\source\
+          move /Y dist\main\* dist\main\source\
           rmdir /S /Q dist\main\cfg
           rmdir /S /Q dist\main\rankings
           rmdir /S /Q dist\main\scores
