@@ -47,11 +47,12 @@ jobs:
 
 
     - name: Create directory structure
+      shell: cmd
       run: |
-        mkdir -p dist/main/source
-        mv dist/main/* dist/main/source/
-        rm -r dist/main/{cfg,rankings,scores}
-        mv cfg rankings scores dist/main/
+          mkdir dist\main\source
+          move dist\main\* dist\main\source\
+          rmdir /S /Q dist\main\cfg dist\main\rankings dist\main\scores
+          move cfg dist\main\rankings dist\main\scores dist\main\
 
     - name: Create shortcut
       run: |
