@@ -4,12 +4,12 @@ import pandas as pd
 
 class JsonHandler:
     def __init__(self):
-        self.prefix = "../"
+        self.prefix = ""
 
-        if os.getenv('PYCHARM_HOSTED'):
-            self.prefix = ""
-        else:
-            self.prefix = "../"
+        # if os.getenv('PYCHARM_HOSTED'):
+        #     self.prefix = ""
+        # else:
+        #     self.prefix = "../"
         self.raw = None
         self.read_json("charged_up.json")
 

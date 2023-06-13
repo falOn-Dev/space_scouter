@@ -5,12 +5,12 @@ from json_handler import JsonHandler
 
 j = JsonHandler()
 
-prefix = "../"
+prefix = ""
 
-if os.getenv('PYCHARM_HOSTED'):
-    prefix = ""
-else:
-    prefix = "../"
+# if os.getenv('PYCHARM_HOSTED'):
+#     prefix = ""
+# else:
+#     prefix = "../"
 
 
 def calculate_scores(score_values, weights):
