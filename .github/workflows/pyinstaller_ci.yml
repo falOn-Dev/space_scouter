@@ -51,8 +51,12 @@ jobs:
       run: |
           mkdir dist\main\source
           move dist\main\* dist\main\source\
-          rmdir /S /Q dist\main\cfg dist\main\rankings dist\main\scores
-          move cfg dist\main\rankings dist\main\scores dist\main\
+          rmdir /S /Q dist\main\cfg
+          rmdir /S /Q dist\main\rankings
+          rmdir /S /Q dist\main\scores
+          move cfg dist\main\
+          move rankings dist\main\
+          move scores dist\main\
 
     - name: Create shortcut
       run: |
