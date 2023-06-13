@@ -45,6 +45,36 @@ jobs:
         pip show customtkinter
         pyinstaller --noconfirm --onedir --windowed --add-data 'C:\hostedtoolcache\windows\python\3.9.13\x64\lib\site-packages\customtkinter;customtkinter/' --add-data "cfg;cfg/" --add-data "scores;scores/" --add-data "rankings;rankings/" "main.py"
 
+
+    - name: Create directory structure
+      shell: cmd
+      run: |
+          mkdir dist\main\source
+          move /Y dist\main\* dist\main\source\
+          move /Y dist\main\customtkinter dist\main\source\
+          move /Y dist\main\numpy dist\main\source\
+          move /Y dist\main\pandas dist\main\source\
+          move /Y dist\main\pytz dist\main\source\
+          move /Y dist\main\tcl dist\main\source\
+          move /Y dist\main\tcl8 dist\main\source\
+          move /Y dist\main\tk dist\main\source\
+        
+          rmdir /S /Q dist\main\cfg
+          rmdir /S /Q dist\main\rankings
+          rmdir /S /Q dist\main\scores
+          move cfg dist\main\
+          move rankings dist\main\
+          move scores dist\main\
+
+    - name: Create shortcut
+      run: |
+          $shortcutPath = "dist/main/main.lnk"
+          $targetPath = "$(pwd)/dist/main/source/main.exe"
+          $shell = New-Object -ComObject WScript.Shell
+          $shortcut = $shell.CreateShortcut($shortcutPath)
+          $shortcut.TargetPath = $targetPath
+          $shortcut.Save()
+
     - name: Create ZIP artifact
       run: Compress-Archive -Path dist/main -DestinationPath artifact.zip
 
