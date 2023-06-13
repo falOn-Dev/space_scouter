@@ -4,11 +4,17 @@ import pandas as pd
 
 class JsonHandler:
     def __init__(self):
+        self.prefix = "../"
+
+        if os.getenv('PYCHARM_HOSTED'):
+            self.prefix = ""
+        else:
+            self.prefix = "../"
         self.raw = None
         self.read_json("charged_up.json")
 
     def read_json(self, filepath):
-        self.raw = pd.read_json("cfg/"+filepath)
+        self.raw = pd.read_json(self.prefix+"cfg/"+filepath)
         print("Config changed to: " + filepath)
 
     def get_weights(self, section):
@@ -23,7 +29,7 @@ class JsonHandler:
 
     def list_configs(self):
         files = []
-        with os.scandir("cfg") as entries:
+        with os.scandir(self.prefix+"cfg") as entries:
             for entry in entries:
                 if entry.is_file():
                     files.append(entry.name)

@@ -5,6 +5,14 @@ from json_handler import JsonHandler
 
 j = JsonHandler()
 
+prefix = "../"
+
+if os.getenv('PYCHARM_HOSTED'):
+    prefix = ""
+else:
+    prefix = "../"
+
+
 def calculate_scores(score_values, weights):
     # Normalize the weights to ensure they sum up to 1
 
@@ -136,7 +144,7 @@ def create_score_file(team_number, score_auto, score_tele, score_endgame):
         }
     }
 
-    scores_directory = "scores/"
+    scores_directory = prefix+"scores/"
     existing_matches = []
     for filename in os.listdir(scores_directory):
         if filename.endswith(".json"):
@@ -155,7 +163,7 @@ def create_score_file(team_number, score_auto, score_tele, score_endgame):
 
 
 def interpolate_score_placement(score: int, category: str):
-    with open('rankings/'+category.lower()+'_rankings.json', 'r') as file:
+    with open(prefix+'rankings/'+category.lower()+'_rankings.json', 'r') as file:
         json_data = file.read()
 
     data = json.loads(json_data)
