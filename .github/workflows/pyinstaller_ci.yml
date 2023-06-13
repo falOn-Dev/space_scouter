@@ -54,10 +54,13 @@ jobs:
         mv cfg rankings scores dist/main/
 
     - name: Create shortcut
-      uses: michaelfery/windows-shortcut-action@v2
-      with:
-        target: dist/main/source/main.exe
-        name: dist/main/Start Program
+      run: |
+          $shortcutPath = "dist/main/main.lnk"
+          $targetPath = "$(pwd)/dist/main/source/main.exe"
+          $shell = New-Object -ComObject WScript.Shell
+          $shortcut = $shell.CreateShortcut($shortcutPath)
+          $shortcut.TargetPath = $targetPath
+          $shortcut.Save()
 
     - name: Create ZIP artifact
       run: Compress-Archive -Path dist/main -DestinationPath artifact.zip
