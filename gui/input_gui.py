@@ -9,6 +9,7 @@ from json_handler import JsonHandler
 class App(ctk.CTk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.configs = None
         self.geometry("500x400")
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
@@ -20,8 +21,8 @@ class App(ctk.CTk):
         self.grid_rowconfigure(999, weight=1)
         self.grid_rowconfigure(998, weight=1)
 
-
         self.endgame_data = []
+        self.j_hand = JsonHandler()
 
         self.endgame_box()
         self.pages()
@@ -32,28 +33,33 @@ class App(ctk.CTk):
         self.auto_data = []
         self.teleop_data = []
 
-        self.json_handler = JsonHandler()
+
+        self.is_calculating_score = False
+
+        self.update_configs()
+
+    def update_configs(self):
+        self.configs = self.j_hand.list_configs()
+        self.config_selector.configure(values=self.configs)
 
     def pages(self):
         self.open_auto = ctk.CTkButton(self, text="Input Auto Score",
                                        command=lambda: self.open_toplevel(AutoInputWindow))
-        self.open_auto.grid(row=0, column=0, padx=5, pady=10, sticky="ew")
+        self.open_auto.grid(row=0, column=0, padx=5, pady=(10,0), sticky="ew")
 
-        self.test_auto = ctk.CTkButton(self, text="Print", command=lambda: print(self.auto_data))
-        self.test_auto.grid(row=1, column=0, sticky="sw", padx=10, pady=10)
+        self.auto_score = ctk.CTkLabel(self, text="Auto Score: 0", anchor="n")
+        self.auto_score.grid(row=1, column=0, sticky="ew", padx=10, pady=0)
 
         self.open_teleop = ctk.CTkButton(self, text="Input Tele Score",
                                          command=lambda: self.open_toplevel(TeleopInputWindow))
-        self.open_teleop.grid(row=0, column=1, padx=5, pady=10, sticky="ew")
+        self.open_teleop.grid(row=0, column=1, padx=5, pady=(10,0), sticky="ew")
 
-        self.test_teleop = ctk.CTkButton(self, text="Print", command=lambda: print(self.teleop_data))
-        self.test_teleop.grid(row=1, column=1, sticky="ew", padx=10, pady=10)
+        self.teleop_score = ctk.CTkLabel(self, text="Teleop Score: 0", anchor="n")
+        self.teleop_score.grid(row=1, column=1, sticky="ew", padx=10, pady=0)
 
     def open_toplevel(self, window):
         if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
             self.toplevel_window = window(self, self)
-        else:
-            self.toplevel_window.focus()
 
     def endgame_box(self):
         self.endgame_frame = ctk.CTkFrame(master=self)
@@ -75,10 +81,25 @@ class App(ctk.CTk):
         self.settings_frame = ctk.CTkFrame(master=self)
         self.settings_frame.grid(row=4, column=3, rowspan=2, padx=10, pady=10, sticky="nsew")
 
+    def update_scores(self):
+        self.auto_score.configure(text=f"Auto Score: {self.auto_score_val}")
+        self.teleop_score.configure(text=f"Teleop Score: {self.teleop_score_val}")
+
     def output(self):
         self.team_number = ctk.CTkEntry(self, placeholder_text="Team Number")
         self.team_number.grid(row=999, column=0, padx=10, pady=5, sticky="sw")
+
         def calculate_score():
+
+            #self.j_hand.read_json(self.config_selector.get())
+
+            # Check if the function is already running
+            if self.is_calculating_score:
+                return
+
+            # Set the flag variable to indicate that the calculation is in progress
+            self.is_calculating_score = True
+
             self.endgame_data.append(self.checkbox1.get())
             self.endgame_data.append(self.checkbox2.get())
             self.endgame_data.append(self.checkbox3.get())
@@ -91,6 +112,16 @@ class App(ctk.CTk):
                 self.endgame_data
             )
 
+            # Reset the flag variable after the calculation is done
+            self.is_calculating_score = False
 
         self.calculate_final = ctk.CTkButton(self, text="Calculate Score", command=calculate_score)
-        self.calculate_final.grid(row=1000, column=0, padx=20, pady=(5,20), sticky="sw")
+        self.calculate_final.grid(row=1000, column=0, padx=20, pady=(5, 20), sticky="sw")
+
+        self.config_selector = ctk.CTkOptionMenu(self, values=self.configs, command=lambda event: self.j_hand.read_json(self.config_selector.get()))
+        self.config_selector.grid(row=1000, column=3, padx=10, pady=5, sticky="se")
+
+        self.check_config = ctk.CTkButton(self, text="Check Config", command=lambda: print(self.j_hand.raw))
+        self.check_config.grid(row=999, column=3, padx=10, pady=5, sticky="se")
+
+        self.config_selector.set("charged_up.json")

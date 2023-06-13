@@ -1,6 +1,6 @@
 import customtkinter as ctk
-from functools import partial
-
+import score_handler as score
+from json_handler import JsonHandler
 
 class AutoInputWindow(ctk.CTkToplevel):
     def __init__(self, app, *args, **kwargs):
@@ -13,8 +13,10 @@ class AutoInputWindow(ctk.CTkToplevel):
         self.mid_cubes_value = None
         self.top_cubes_value = None
         self.exited_checkbox = None
-        self.geometry("600x500")
+        self.geometry("500x400")
         self.title("Auto Input")
+
+        self.json_handler = JsonHandler()
 
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
@@ -32,8 +34,12 @@ class AutoInputWindow(ctk.CTkToplevel):
         self.create_input_fields()
         self.create_checkboxes()
 
+        self.grab_set()
+
+
     def send_auto_data(self):
         self.app.auto_data = self.get_input_values()
+        self.app.auto_score.configure(text=self.score_label.cget("text"))
         self.destroy()
     def create_input_fields(self):
         row = 0
@@ -47,12 +53,12 @@ class AutoInputWindow(ctk.CTkToplevel):
 
         top_cubes_up = ctk.CTkButton(self, text="+",
                                      command=lambda label=top_cubes_value: self.top_cubes_up_command(label), width=50)
-        top_cubes_up.grid(row=row, column=2, pady=(10, 0), padx=(5, 0), sticky="e")
+        top_cubes_up.grid(row=row, column=4, pady=(10, 0), padx=(5, 0), sticky="w")
 
         top_cubes_down = ctk.CTkButton(self, text="-",
                                        command=lambda label=top_cubes_value: self.top_cubes_down_command(label),
                                        width=50)
-        top_cubes_down.grid(row=row, column=4, pady=(10, 0), padx=(0, 5), sticky="w")
+        top_cubes_down.grid(row=row, column=2, pady=(10, 0), padx=(0, 5), sticky="e")
 
         row += 1
 
@@ -65,12 +71,12 @@ class AutoInputWindow(ctk.CTkToplevel):
 
         mid_cubes_up = ctk.CTkButton(self, text="+",
                                      command=lambda label=mid_cubes_value: self.top_cubes_up_command(label), width=50)
-        mid_cubes_up.grid(row=row, column=2, pady=(10, 0), padx=(5, 0), sticky="e")
+        mid_cubes_up.grid(row=row, column=4, pady=(10, 0), padx=(5, 0), sticky="w")
 
         mid_cubes_down = ctk.CTkButton(self, text="-",
                                        command=lambda label=mid_cubes_value: self.top_cubes_down_command(label),
                                        width=50)
-        mid_cubes_down.grid(row=row, column=4, pady=(10, 0), padx=(0, 5), sticky="w")
+        mid_cubes_down.grid(row=row, column=2, pady=(10, 0), padx=(0, 5), sticky="e")
 
         row += 1
 
@@ -83,12 +89,12 @@ class AutoInputWindow(ctk.CTkToplevel):
 
         top_cones_up = ctk.CTkButton(self, text="+",
                                      command=lambda label=top_cones_value: self.top_cubes_up_command(label), width=50)
-        top_cones_up.grid(row=row, column=2, pady=(10, 0), padx=(5, 0), sticky="e")
+        top_cones_up.grid(row=row, column=4, pady=(10, 0), padx=(5, 0), sticky="w")
 
         top_cones_down = ctk.CTkButton(self, text="-",
                                        command=lambda label=top_cones_value: self.top_cubes_down_command(label),
                                        width=50)
-        top_cones_down.grid(row=row, column=4, pady=(10, 0), padx=(0, 5), sticky="w")
+        top_cones_down.grid(row=row, column=2, pady=(10, 0), padx=(0, 5), sticky="e")
 
         row += 1
 
@@ -101,12 +107,12 @@ class AutoInputWindow(ctk.CTkToplevel):
 
         mid_cones_up = ctk.CTkButton(self, text="+",
                                      command=lambda label=mid_cones_value: self.top_cubes_up_command(label), width=50)
-        mid_cones_up.grid(row=row, column=2, pady=(10, 0), padx=(5, 0), sticky="e")
+        mid_cones_up.grid(row=row, column=4, pady=(10, 0), padx=(5, 0), sticky="w")
 
         mid_cones_down = ctk.CTkButton(self, text="-",
                                        command=lambda label=mid_cones_value: self.top_cubes_down_command(label),
                                        width=50)
-        mid_cones_down.grid(row=row, column=4, pady=(10, 0), padx=(0, 5), sticky="w")
+        mid_cones_down.grid(row=row, column=2, pady=(10, 0), padx=(0, 5), sticky="e")
 
         row += 1
 
@@ -119,15 +125,15 @@ class AutoInputWindow(ctk.CTkToplevel):
 
         low_pieces_up = ctk.CTkButton(self, text="+",
                                       command=lambda label=low_pieces_value: self.top_cubes_up_command(label), width=50)
-        low_pieces_up.grid(row=row, column=2, pady=(10, 0), padx=(5, 0), sticky="e")
+        low_pieces_up.grid(row=row, column=4, pady=(10, 0), padx=(5, 0), sticky="w")
 
         low_pieces_down = ctk.CTkButton(self, text="-",
                                         command=lambda label=low_pieces_value: self.top_cubes_down_command(label),
                                         width=50)
-        low_pieces_down.grid(row=row, column=4, pady=(10, 0), padx=(0, 5), sticky="w")
+        low_pieces_down.grid(row=row, column=2, pady=(10, 0), padx=(0, 5), sticky="e")
 
-        calculate_button = ctk.CTkButton(self, text="Calculate", command=partial(self.print_input_values))
-        calculate_button.grid(row=999, column=0, sticky="sw", padx=20, pady=20)
+        self.score_label = ctk.CTkLabel(self, text="Score: 0", anchor="center")
+        self.score_label.grid(row=999, column=0, sticky="sw", padx=20, pady=20)
 
         send_button = ctk.CTkButton(self, text="Complete", command=self.send_auto_data)
         send_button.grid(row=999, column=4, sticky="se", padx=20, pady=20)
@@ -141,13 +147,13 @@ class AutoInputWindow(ctk.CTkToplevel):
     def create_checkboxes(self):
         row = 5
 
-        docked_checkbox = ctk.CTkCheckBox(self, text="Docked")
+        docked_checkbox = ctk.CTkCheckBox(self, text="Docked", command=self.update_score)
         docked_checkbox.grid(row=row, column=0, pady=10)
 
-        engaged_checkbox = ctk.CTkCheckBox(self, text="Engaged")
+        engaged_checkbox = ctk.CTkCheckBox(self, text="Engaged", command=self.update_score)
         engaged_checkbox.grid(row=row + 1, column=0, pady=10)
 
-        exited_checkbox = ctk.CTkCheckBox(self, text="Exited")
+        exited_checkbox = ctk.CTkCheckBox(self, text="Exited", command=self.update_score)
         exited_checkbox.grid(row=row + 2, column=0, pady=10)
 
         self.docked_checkbox = docked_checkbox
@@ -156,9 +162,17 @@ class AutoInputWindow(ctk.CTkToplevel):
 
     def top_cubes_up_command(self, label):
         label.configure(text=str(int(label.cget("text")) + 1))
+        self.update_score()
 
     def top_cubes_down_command(self, label):
         label.configure(text=str(int(label.cget("text")) - 1))
+        self.update_score()
+
+    def update_score(self):
+        raw_score = self.get_input_values()
+        scores = score.calculate_scores(raw_score, self.json_handler.get_weights("Auto"))
+        self.score_label.configure(text="Score: " + str(scores))
+
 
     def get_input_values(self):
         input_values = []
