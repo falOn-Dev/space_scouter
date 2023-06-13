@@ -51,6 +51,14 @@ jobs:
       run: |
           mkdir dist\main\source
           move /Y dist\main\* dist\main\source\
+          move /Y dist\main\customtkinter dist\main\source\
+          move /Y dist\main\numpy dist\main\source\
+          move /Y dist\main\pandas dist\main\source\
+          move /Y dist\main\pytz dist\main\source\
+          move /Y dist\main\tcl dist\main\source\
+          move /Y dist\main\tcl8 dist\main\source\
+          move /Y dist\main\tk dist\main\source\
+        
           rmdir /S /Q dist\main\cfg
           rmdir /S /Q dist\main\rankings
           rmdir /S /Q dist\main\scores
