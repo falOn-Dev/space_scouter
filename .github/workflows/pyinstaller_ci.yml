@@ -45,6 +45,20 @@ jobs:
         pip show customtkinter
         pyinstaller --noconfirm --onedir --windowed --add-data 'C:\hostedtoolcache\windows\python\3.9.13\x64\lib\site-packages\customtkinter;customtkinter/' --add-data "cfg;cfg/" --add-data "scores;scores/" --add-data "rankings;rankings/" "main.py"
 
+
+    - name: Create directory structure
+      run: |
+        mkdir -p dist/main/source
+        mv dist/main/* dist/main/source/
+        rm -r dist/main/{cfg,rankings,scores}
+        mv cfg rankings scores dist/main/
+
+    - name: Create shortcut
+      uses: michaelfery/windows-shortcut-action@v2
+      with:
+        target: dist/main/source/main.exe
+        name: dist/main/Start Program
+
     - name: Create ZIP artifact
       run: Compress-Archive -Path dist/main -DestinationPath artifact.zip
 
