@@ -1,8 +1,8 @@
 import customtkinter as ctk
-from gui.custom_widgets.numerical_value import NumericalValue
+from new_gui.custom_widgets.numerical_value import NumericalValue
 
 
-class App(ctk.CTk):
+class AutoWindow(ctk.CTkToplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
