@@ -1,8 +1,8 @@
 import customtkinter as ctk
 
 
-class NumericalValue(ctk.CTkFrame):
-    def __init__(self, master, row, title):
+class NumericalValue(ctk.CTkScrollableFrame):
+    def __init__(self, master, row, labels):
         super().__init__(master)
         self.grid_columnconfigure("0", weight=1)
         self.grid_columnconfigure("1", weight=1)
@@ -11,22 +11,34 @@ class NumericalValue(ctk.CTkFrame):
         self.grid_columnconfigure("4", weight=1)
 
         self.row = row
-        self.title = title
+        self.values = []
 
-        self.label = ctk.CTkLabel(self, text=self.title, anchor="center")
-        self.label.grid(row=self.row, column=0, pady=(10, 10))
+        for i in range(len(labels)):
+            self.create_widget(labels[i], i)
+
+
+
+    def increment(self, label):
+        label.configure(text=str(int(label.cget("text")) + 1))
+
+    def decrement(self, label):
+        label.configure(text=str(int(label.cget("text")) - 1))
+
+    def create_widget(self, title, row):
+        self.label = ctk.CTkLabel(self, text=title, anchor="center")
+        self.label.grid(row=row, column=0, pady=(10, 10))
 
         self.value = ctk.CTkLabel(self, text="0")
-        self.value.grid(row=self.row, column=3, pady=(10, 10))
+        self.value.grid(row=row, column=3, pady=(10, 10))
 
-        self.up = ctk.CTkButton(self, text="+", width=50, command=self.increment)
-        self.up.grid(row=self.row, column=4, pady=(10, 10), padx=(5, 0), sticky="w")
+        self.up = ctk.CTkButton(self, text="+", width=50, command=lambda label=self.value: self.increment(label))
+        self.up.grid(row=row, column=4, pady=(10, 10), padx=(5, 0), sticky="w")
 
-        self.down = ctk.CTkButton(self, text="-", width=50, command=self.decrement)
-        self.down.grid(row=self.row, column=2, pady=(10, 10), padx=(0, 5), sticky="e")
+        self.down = ctk.CTkButton(self, text="-", width=50, command=lambda label=self.value: self.decrement(label))
+        self.down.grid(row=row, column=2, pady=(10, 10), padx=(0, 5), sticky="e")
 
-    def increment(self):
-        self.value.configure(text=str(int(self.value.cget("text")) + 1))
+        self.values.append(self.value)
 
-    def decrement(self):
-        self.value.configure(text=str(int(self.value.cget("text")) - 1))
+    def get_values(self):
+        return [int(value.cget("text")) for value in self.values]
+
