@@ -1,4 +1,5 @@
-from gui.input_gui import App
+#from gui.input_gui import App
+from new_gui.test_gui import App
 import score_handler as sh
 from json_handler import JsonHandler
 
