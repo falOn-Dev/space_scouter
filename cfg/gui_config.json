@@ -1,0 +1,11 @@
+{
+  "auto": {
+    "num": ["Top Cubes: ", "Mid Cubes: ", "Top Cones: ", "Mid Cones: ", "Bottom Pieces: "],
+    "checks": ["Docked", "Engaged", "Exited"]
+  },
+  "teleop": {
+    "num": ["Top Cubes: ", "Mid Cubes: ", "Top Cones: ", "Mid Cones: ", "Bottom Pieces: ", "Cycle Time: "],
+    "checks": ["Docked", "Engaged", "Parked"]
+  },
+  "extra": ["Sustainable", "Active", "Coop", "Win"]
+}

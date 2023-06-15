@@ -32,7 +32,9 @@ class JsonHandler:
         with os.scandir(self.prefix+"cfg") as entries:
             for entry in entries:
                 if entry.is_file():
-                    files.append(entry.name)
+                    if not entry.name == "gui_config.json":
+                        files.append(entry.name)
+
 
         return files
 
