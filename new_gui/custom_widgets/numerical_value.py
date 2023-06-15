@@ -2,7 +2,7 @@ import customtkinter as ctk
 
 
 class NumericalValue(ctk.CTkScrollableFrame):
-    def __init__(self, master, row, labels):
+    def __init__(self, master, row, labels, window):
         super().__init__(master)
         self.grid_columnconfigure("0", weight=1)
         self.grid_columnconfigure("1", weight=1)
@@ -13,6 +13,8 @@ class NumericalValue(ctk.CTkScrollableFrame):
         self.row = row
         self.values = []
 
+        self.window = window
+
         for i in range(len(labels)):
             self.create_widget(labels[i], i)
 
@@ -20,9 +22,11 @@ class NumericalValue(ctk.CTkScrollableFrame):
 
     def increment(self, label):
         label.configure(text=str(int(label.cget("text")) + 1))
+        self.window.update_scores()
 
     def decrement(self, label):
         label.configure(text=str(int(label.cget("text")) - 1))
+        self.window.update_scores()
 
     def create_widget(self, title, row):
         self.label = ctk.CTkLabel(self, text=title, anchor="center")
@@ -41,4 +45,6 @@ class NumericalValue(ctk.CTkScrollableFrame):
 
     def get_values(self):
         return [int(value.cget("text")) for value in self.values]
+
+
 
