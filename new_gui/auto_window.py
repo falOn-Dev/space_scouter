@@ -12,6 +12,8 @@ import score_handler as sh
 class AutoWindow(ctk.CTkToplevel):
     def __init__(self, root, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        ctk.set_default_color_theme("green")
+
         self.root = root
         self.grab_set()
 
@@ -53,7 +55,7 @@ class AutoWindow(ctk.CTkToplevel):
         self.bottom_frame.grid_columnconfigure(0, weight=1)
         self.bottom_frame.grid_columnconfigure(1, weight=1)
 
-        self.complete_button = ctk.CTkButton(self.bottom_frame, text="Complete", command=self.destroy)
+        self.complete_button = ctk.CTkButton(self.bottom_frame, text="Complete", command=self.send_auto_scores)
         self.complete_button.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
 
         self.score_label = ctk.CTkLabel(self.bottom_frame, text="Score: 0")
@@ -84,6 +86,11 @@ class AutoWindow(ctk.CTkToplevel):
         raw_score = self.get_input_values()
         scores = sh.calculate_scores(raw_score, self.json_handler.get_weights("Auto"))
         self.score_label.configure(text="Score: " + str(scores))
+
+    def send_auto_scores(self):
+        auto_data = self.get_input_values()
+        self.root.auto_data = auto_data
+        self.destroy()
 
     def complete(self):
         auto_data = self.get_input_values()

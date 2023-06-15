@@ -14,9 +14,14 @@ from new_gui.teleop_window import TeleopWindow
 class App(ctk.CTk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        ctk.set_default_color_theme("green")
 
         self.j_hand = JsonHandler()
         self.configs = None
+
+        self.extras = self.get_checks()
+
+
 
 
         self.grid_columnconfigure(0, weight=1)
@@ -43,7 +48,7 @@ class App(ctk.CTk):
         self.windows_frame = ctk.CTkFrame(self)
         self.windows_frame.grid(row=0, column=4, columnspan=2, rowspan=8, sticky="nsew", padx=10, pady=(10, 0))
 
-        self.check_frame = CheckFrame(self, 0, ["Autonomous", "Skills", "Programming Skills"], self)
+        self.check_frame = CheckFrame(self, 0, self.extras, self)
         self.check_frame.grid(row=0, column=0, columnspan=2, rowspan=8, sticky="nsew", padx=10, pady=(10, 0))
 
         self.bottom_frame = ctk.CTkFrame(self)
@@ -110,11 +115,6 @@ class App(ctk.CTk):
     def update_scores(self):
         print("ill fix this later")
 
-    def update_auto_scores(self, data):
-        self.auto_data = data
-
-    def update_teleop_scores(self, data):
-        self.teleop_data = data
 
     def print_auto_scores(self):
-        print(self.auto_data)
+        print(self.teleop_data)
