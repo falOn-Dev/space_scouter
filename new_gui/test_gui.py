@@ -29,6 +29,7 @@ class App(ctk.CTk):
         self.grid_columnconfigure(2, weight=1)
         self.grid_columnconfigure(3, weight=1)
         self.grid_columnconfigure(4, weight=1)
+        self.grid_columnconfigure(5, weight=1)
 
         self.grid_rowconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=1)
@@ -38,6 +39,8 @@ class App(ctk.CTk):
         self.grid_rowconfigure(5, weight=1)
         self.grid_rowconfigure(6, weight=1)
         self.grid_rowconfigure(7, weight=1)
+        self.grid_rowconfigure(8, weight=1)
+        self.grid_rowconfigure(9, weight=1)
 
 
         self.geometry("550x440")
@@ -52,7 +55,7 @@ class App(ctk.CTk):
         self.check_frame.grid(row=0, column=0, columnspan=2, rowspan=8, sticky="nsew", padx=10, pady=(10, 0))
 
         self.bottom_frame = ctk.CTkFrame(self)
-        self.bottom_frame.grid(row=8, column=0, columnspan=5, sticky="ew", padx=10, pady=(10, 10))
+        self.bottom_frame.grid(row=9, column=0, columnspan=6, sticky="ew", padx=10, pady=(10, 10))
 
         self.update_configs()
         self.place_bottom_frame()

@@ -130,8 +130,17 @@ def create_score_file(team_number, score_auto, score_tele, score_endgame):
     teleop_score = calculate_scores(score_tele, teleop_weights)
     endgame_score = calculate_scores(score_endgame, endgame_weights)
 
+    auto_rank = interpolate_score_placement(auto_score, "Auto")
+    teleop_rank = interpolate_score_placement(teleop_score, "Teleop")
+    endgame_rank = interpolate_score_placement(endgame_score, "Endgame")
+
     output = {
         "team_number": team_number,
+        "rank": {
+            "auto": auto_rank,
+            "teleop": teleop_rank,
+            "endgame": endgame_rank
+        },
         "scores": {
             "auto": auto_score,
             "teleop": teleop_score,
