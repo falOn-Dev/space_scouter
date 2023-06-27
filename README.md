@@ -1,9 +1,10 @@
 # space_scouter
 Create and edit JSON scoring system to determine a bot's capabilities with a few simple values.\
 
-- [ ] Assign weights for the individual categories for Charged Up (2023)
-- [ ] Add system for user input and outputting .json files of the Auto, Teleop, and Bonus scoring
-- [ ] Add Slack integration
+- [ ] Create main menu system for using multiple tools
+- [x] Add system for user input and outputting .json files of the Auto, Teleop, and Bonus scores 
+- [ ] Create score viewer tool
+- [ ] Create weight tweaking tool
 
 
 [Team Website](https://team2537.com) <br>
