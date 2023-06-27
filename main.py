@@ -1,5 +1,6 @@
 #from gui.input_gui import App
 from gui.scoring.test_gui import App
+from gui.main_menu import MainMenu
 
 #values = j.get_value("Auto", "Cubes", "top")
 
@@ -11,7 +12,7 @@ score_values = [0.15, 0.1, True, False, 0.01, True, True, False]
 
 if __name__ == '__main__':
 
-    app = App()
+    app = MainMenu()
     app.mainloop()
 
 
