@@ -6,6 +6,11 @@ class MatchInfo(ctk.CTkFrame):
 
         self.data = data
 
+        self.configure(border_color="#2FA572", border_width=2, corner_radius=5)
+
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_columnconfigure(1, weight=1)
+
         self.team_label = ctk.CTkLabel(self, text=f"Team Number: {data[0]}")
         self.team_label.grid(row=0, column=0, sticky="nw", padx=10, pady=2)
 
