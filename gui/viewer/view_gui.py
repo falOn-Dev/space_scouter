@@ -16,13 +16,21 @@ class ViewerApp(ctk.CTk):
         ctk.set_default_color_theme("green")
         ctk.set_appearance_mode("dark")
 
-        scores = self.extract_keys_from_directory()
+        self.grid_columnconfigure(0, weight=5)
+        self.grid_columnconfigure(1, weight=1)
 
-        self.print_scores = ctk.CTkButton(self, text="Print Scores", command=lambda : print(scores[0]))
-        self.print_scores.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
+        self.grid_rowconfigure(0, weight=1)
 
-        self.info_test = MatchInfo(self, scores[0])
-        self.info_test.grid(row=1, column=0, padx=10, pady=10, sticky="nsew")
+
+        self.scores = self.extract_keys_from_directory()
+
+        self.matches_frame = ctk.CTkScrollableFrame(self)
+        self.matches_frame.grid(row=0, column=0, padx=5, pady=10, sticky="nsew")
+
+        self.button_frame = ctk.CTkFrame(self)
+        self.button_frame.grid(row=0, column=1, padx=5, pady=10, sticky="nsew")
+
+        self.add_scores()
 
     def extract_keys_from_directory(self):
         results = []
@@ -53,9 +61,22 @@ class ViewerApp(ctk.CTk):
                                     find_values(item)
 
                         find_values(data)
+
+                        # Append team_number:match_number to the values list
+                        team_number = values[0]
+                        match_number = values[-1]
+                        values.append(f"{team_number}:{match_number}")
+
                         results.append(values)
                     except json.JSONDecodeError:
                         print(f"Error decoding JSON file: {file_path}")
 
+        # Sort results based on team number and match number
+        results.sort(key=lambda x: (int(x[-1].split(":")[0]), int(x[-1].split(":")[1])))
+
         return results
+    def add_scores(self):
+        for score in self.scores:
+            match = MatchInfo(self.matches_frame, score)
+            match.grid(sticky="ew", padx=10, pady=10)
 
