@@ -2,14 +2,13 @@ import json
 
 import customtkinter as ctk
 
-from new_gui.custom_widgets.checkframe import CheckFrame
-from new_gui.custom_widgets.numerical_value import NumericalValue
+from gui.custom_widgets.checkframe import CheckFrame
 from json_handler import JsonHandler
 import score_handler as sh
 import ranking_handler as rh
 
-from new_gui.auto_window import AutoWindow
-from new_gui.teleop_window import TeleopWindow
+from gui.scoring.auto_window import AutoWindow
+from gui.scoring.teleop_window import TeleopWindow
 
 
 class App(ctk.CTk):

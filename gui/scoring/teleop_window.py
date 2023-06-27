@@ -3,8 +3,8 @@ import json
 import customtkinter as ctk
 
 from json_handler import JsonHandler
-from new_gui.custom_widgets.numerical_value import NumericalValue
-from new_gui.custom_widgets.checkframe import CheckFrame
+from gui.custom_widgets.numerical_value import NumericalValue
+from gui.custom_widgets.checkframe import CheckFrame
 
 import score_handler as sh
 
@@ -16,6 +16,8 @@ class TeleopWindow(ctk.CTkToplevel):
 
         self.root = root
         self.grab_set()
+
+        self.sub_toplevel = None
 
         self.json_handler = JsonHandler()
 
@@ -43,8 +45,6 @@ class TeleopWindow(ctk.CTkToplevel):
 
         self.checkboxes = CheckFrame(self, 0, self.checks, self)
         self.checkboxes.grid(row=0, column=0, columnspan=2, rowspan=8, sticky="nsew", padx=10, pady=(10, 0))
-
-
 
         self.place_bottom_frame()
 
@@ -91,8 +91,3 @@ class TeleopWindow(ctk.CTkToplevel):
         teleop_data = self.get_input_values()
         self.root.teleop_data = teleop_data
         self.destroy()
-
-
-
-
-

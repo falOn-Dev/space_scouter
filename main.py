@@ -1,7 +1,5 @@
 #from gui.input_gui import App
-from new_gui.test_gui import App
-import score_handler as sh
-from json_handler import JsonHandler
+from gui.scoring.test_gui import App
 
 #values = j.get_value("Auto", "Cubes", "top")
 

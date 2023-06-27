@@ -3,8 +3,8 @@ import json
 import customtkinter as ctk
 
 from json_handler import JsonHandler
-from new_gui.custom_widgets.numerical_value import NumericalValue
-from new_gui.custom_widgets.checkframe import CheckFrame
+from gui.custom_widgets.numerical_value import NumericalValue
+from gui.custom_widgets.checkframe import CheckFrame
 
 import score_handler as sh
 
