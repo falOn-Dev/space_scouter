@@ -16,7 +16,7 @@ class App(ctk.CTk):
         super().__init__(*args, **kwargs)
         ctk.set_default_color_theme("green")
 
-        self.update_ranks()
+        #self.update_ranks()
         self.j_hand = JsonHandler()
         self.configs = None
 
