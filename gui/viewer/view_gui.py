@@ -16,7 +16,7 @@ class ViewerApp(ctk.CTk):
         ctk.set_default_color_theme("green")
         ctk.set_appearance_mode("dark")
 
-        self.grid_columnconfigure(0, weight=5)
+        self.grid_columnconfigure(0, weight=8)
         self.grid_columnconfigure(1, weight=1)
 
         self.grid_rowconfigure(0, weight=1)
