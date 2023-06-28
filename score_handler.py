@@ -120,6 +120,18 @@ def random_endgame():
     # Return the randomized endgame status as an array
     return [endgame_dock, endgame_engage, endgame_exit, endgame_park]
 
+def get_match_number(team_number):
+    scores_directory = prefix+"scores/"
+    existing_matches = []
+    for filename in os.listdir(scores_directory):
+        if filename.endswith(".json") and filename.startswith(str(team_number)):
+            existing_matches.append(int(filename.split("_")[1].split(".")[0]))
+
+    match_number = 1
+    while match_number in existing_matches:
+        match_number += 1
+
+    return match_number
 
 def create_score_file(team_number, score_auto, score_tele, score_endgame):
     auto_weights = j.get_weights("Auto")
@@ -159,9 +171,7 @@ def create_score_file(team_number, score_auto, score_tele, score_endgame):
         if filename.endswith(".json"):
             existing_matches.append(int(filename.split("_")[1].split(".")[0]))
 
-    match_number = 1
-    while match_number in existing_matches:
-        match_number += 1
+    match_number = get_match_number(team_number)
 
     output["match_number"] = match_number
     file_contents = json.dumps(output, indent=4)
