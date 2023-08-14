@@ -14,8 +14,9 @@ class MatchInfo(ctk.CTkFrame):
         self.team_label = ctk.CTkLabel(self, text=f"Team Number: {data[0]}")
         self.team_label.grid(row=0, column=0, sticky="nw", padx=10, pady=2)
 
-        self.match_label = ctk.CTkLabel(self, text=f"Match Number: {data[7]}")
-        self.match_label.grid(row=0, column=1, sticky="ne", padx=10, pady=2)
+        self.open_button = ctk.CTkButton(self, text="View Match", command=lambda : print(f"View {data[8]}"))
+        self.open_button.grid(row=4, column=1, sticky="se", padx=0, pady=0)
+
 
         self.rank_scores()
         self.raw_scores()
@@ -32,7 +33,7 @@ class MatchInfo(ctk.CTkFrame):
         self.rank_end.grid(row=row, column=0, sticky="nw", padx=10, pady=2)
 
     def raw_scores(self):
-        row = 1
+        row = 0
         self.raw_auto = ctk.CTkLabel(self, text=f"Auto Score: {self.data[4]}")
         self.raw_auto.grid(row=row, column=1, sticky="ne", padx=10, pady=2)
         row += 1

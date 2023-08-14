@@ -4,6 +4,7 @@ import os
 import customtkinter as ctk
 
 from gui.custom_widgets.match_info import MatchInfo
+from gui.custom_widgets.match_details import MatchDetails
 
 
 class ViewerApp(ctk.CTk):
@@ -21,14 +22,13 @@ class ViewerApp(ctk.CTk):
 
         self.grid_rowconfigure(0, weight=1)
 
-
         self.scores = self.extract_keys_from_directory()
 
         self.matches_frame = ctk.CTkScrollableFrame(self)
         self.matches_frame.grid(row=0, column=0, padx=5, pady=10, sticky="nsew")
 
-        self.button_frame = ctk.CTkFrame(self)
-        self.button_frame.grid(row=0, column=1, padx=5, pady=10, sticky="nsew")
+        self.detail_frame = MatchDetails(self)
+        self.detail_frame.grid(row=0, column=1, padx=5, pady=10, sticky="nsew")
 
         self.add_scores()
 
@@ -63,20 +63,17 @@ class ViewerApp(ctk.CTk):
                         find_values(data)
 
                         # Append team_number:match_number to the values list
-                        team_number = values[0]
-                        match_number = values[-1]
-                        values.append(f"{team_number}:{match_number}")
+                        values.append(f"{filename[:-5]}")
 
                         results.append(values)
                     except json.JSONDecodeError:
                         print(f"Error decoding JSON file: {file_path}")
 
         # Sort results based on team number and match number
-        results.sort(key=lambda x: (int(x[-1].split(":")[0]), int(x[-1].split(":")[1])))
-
+        results.sort(key=lambda x: (int(x[-1].split("_")[0]), int(x[-1].split("_")[1])))
         return results
+
     def add_scores(self):
         for score in self.scores:
             match = MatchInfo(self.matches_frame, score)
             match.grid(sticky="ew", padx=10, pady=10)
-
