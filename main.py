@@ -1,5 +1,5 @@
 #from gui.input_gui import App
-from gui.scoring.test_gui import App
+from gui.scoring.scoring_home import App
 from gui.main_menu import MainMenu
 
 #values = j.get_value("Auto", "Cubes", "top")

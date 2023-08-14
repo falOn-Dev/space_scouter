@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from gui.scoring.test_gui import App as ScoringApp
+from gui.scoring.scoring_home import App as ScoringApp
 from gui.viewer.view_gui import ViewerApp
 from gui.weighting.weight_gui import WeightApp
 
