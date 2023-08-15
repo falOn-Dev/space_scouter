@@ -1,7 +1,7 @@
 import customtkinter as ctk
 
 class MatchInfo(ctk.CTkFrame):
-    def __init__(self, master, data):
+    def __init__(self, master, data, detail_frame):
         super().__init__(master)
 
         self.data = data
@@ -14,12 +14,15 @@ class MatchInfo(ctk.CTkFrame):
         self.team_label = ctk.CTkLabel(self, text=f"Team Number: {data[0]}")
         self.team_label.grid(row=0, column=0, sticky="nw", padx=10, pady=2)
 
-        self.open_button = ctk.CTkButton(self, text="View Match", command=lambda : print(f"View {data[8]}"))
+        self.open_button = ctk.CTkButton(self, text="View Match", command=lambda : detail_frame.set_data(data))
         self.open_button.grid(row=4, column=1, sticky="se", padx=0, pady=0)
 
 
         self.rank_scores()
         self.raw_scores()
+
+    def get_data(self):
+        return self.data
 
     def rank_scores(self):
         row = 1

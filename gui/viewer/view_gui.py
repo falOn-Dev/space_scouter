@@ -17,7 +17,7 @@ class ViewerApp(ctk.CTk):
         ctk.set_default_color_theme("green")
         ctk.set_appearance_mode("dark")
 
-        self.grid_columnconfigure(0, weight=8)
+        self.grid_columnconfigure(0, weight=12)
         self.grid_columnconfigure(1, weight=1)
 
         self.grid_rowconfigure(0, weight=1)
@@ -28,7 +28,7 @@ class ViewerApp(ctk.CTk):
         self.matches_frame.grid(row=0, column=0, padx=5, pady=10, sticky="nsew")
 
         self.detail_frame = MatchDetails(self)
-        self.detail_frame.grid(row=0, column=1, padx=5, pady=10, sticky="nsew")
+        self.detail_frame.grid(row=0, column=1, padx=5, pady=10, sticky="nsw")
 
         self.add_scores()
 
@@ -75,5 +75,5 @@ class ViewerApp(ctk.CTk):
 
     def add_scores(self):
         for score in self.scores:
-            match = MatchInfo(self.matches_frame, score)
-            match.grid(sticky="ew", padx=10, pady=10)
+            match = MatchInfo(self.matches_frame, score, self.detail_frame)
+            match.grid(sticky="ew", padx=(10, 30), pady=10)
