@@ -9,3 +9,5 @@ class WeightApp(ctk.CTk):
 
         ctk.set_default_color_theme("green")
         ctk.set_appearance_mode("dark")
+
+

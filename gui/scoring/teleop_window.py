@@ -8,7 +8,7 @@ from gui.custom_widgets.checkframe import CheckFrame
 
 import score_handler as sh
 
-
+#comment bruh
 class TeleopWindow(ctk.CTkToplevel):
     def __init__(self, root, *args, **kwargs):
         super().__init__(*args, **kwargs)
