@@ -1,9 +1,9 @@
 # space_scouter
 Create and edit JSON scoring system to determine a bot's capabilities with a few simple values.\
 
-- [ ] Create main menu system for using multiple tools
+- [x] Create main menu system for using multiple tools
 - [x] Add system for user input and outputting .json files of the Auto, Teleop, and Bonus scores 
-- [ ] Create score viewer tool
+- [x] Create score viewer tool
 - [ ] Create weight tweaking tool
 
 
