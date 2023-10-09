@@ -14,7 +14,6 @@ def ranker(category: str):
             ranks.add(score)  # Add score to the set
 
     ranks = sorted(ranks, reverse=True)  # Sort the set in descending order
-    print(ranks)
 
     json_object = {str(100 - index): int(value) for index, value in enumerate(ranks)}
 

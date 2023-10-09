@@ -1,7 +1,6 @@
 #from gui.input_gui import App
-from new_gui.test_gui import App
-import score_handler as sh
-from json_handler import JsonHandler
+from gui.scoring.scoring_home import App
+from gui.main_menu import MainMenu
 
 #values = j.get_value("Auto", "Cubes", "top")
 
@@ -13,7 +12,7 @@ score_values = [0.15, 0.1, True, False, 0.01, True, True, False]
 
 if __name__ == '__main__':
 
-    app = App()
+    app = MainMenu()
     app.mainloop()
 
 

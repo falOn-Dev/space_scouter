@@ -3,13 +3,13 @@ import json
 import customtkinter as ctk
 
 from json_handler import JsonHandler
-from new_gui.custom_widgets.numerical_value import NumericalValue
-from new_gui.custom_widgets.checkframe import CheckFrame
+from gui.custom_widgets.numerical_value import NumericalValue
+from gui.custom_widgets.checkframe import CheckFrame
 
 import score_handler as sh
 
 
-class TeleopWindow(ctk.CTkToplevel):
+class AutoWindow(ctk.CTkToplevel):
     def __init__(self, root, *args, **kwargs):
         super().__init__(*args, **kwargs)
         ctk.set_default_color_theme("green")
@@ -34,7 +34,7 @@ class TeleopWindow(ctk.CTkToplevel):
         self.grid_rowconfigure(6, weight=1)
         self.grid_rowconfigure(7, weight=1)
 
-        self.nums, self.checks = self.convert_json_to_arrays("teleop")
+        self.nums, self.checks = self.convert_json_to_arrays("auto")
 
         self.geometry("550x440")
 
@@ -55,7 +55,7 @@ class TeleopWindow(ctk.CTkToplevel):
         self.bottom_frame.grid_columnconfigure(0, weight=1)
         self.bottom_frame.grid_columnconfigure(1, weight=1)
 
-        self.complete_button = ctk.CTkButton(self.bottom_frame, text="Complete", command=self.send_teleop_scores)
+        self.complete_button = ctk.CTkButton(self.bottom_frame, text="Complete", command=self.send_auto_scores)
         self.complete_button.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
 
         self.score_label = ctk.CTkLabel(self.bottom_frame, text="Score: 0")
@@ -84,14 +84,18 @@ class TeleopWindow(ctk.CTkToplevel):
 
     def update_scores(self):
         raw_score = self.get_input_values()
-        scores = sh.calculate_scores(raw_score, self.json_handler.get_weights("Tele"))
+        scores = sh.calculate_scores(raw_score, self.json_handler.get_weights("Auto"))
         self.score_label.configure(text="Score: " + str(scores))
 
-    def send_teleop_scores(self):
-        teleop_data = self.get_input_values()
-        self.root.teleop_data = teleop_data
+    def send_auto_scores(self):
+        auto_data = self.get_input_values()
+        self.root.auto_data = auto_data
         self.destroy()
 
+    def complete(self):
+        auto_data = self.get_input_values()
+        self.root.update_auto_scores(auto_data)
+        self.destroy()
 
 
 
