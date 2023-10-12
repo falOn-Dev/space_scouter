@@ -62,10 +62,7 @@ class App(ctk.CTk):
 
         self.toplevel_window = None
 
-    def update_ranks(self):
-        rh.ranker("teleop")
-        rh.ranker("auto")
-        rh.ranker("endgame")
+
 
     def place_windows_frame(self):
         self.auto_button = ctk.CTkButton(self.windows_frame, text="Autonomous",

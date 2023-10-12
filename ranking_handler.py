@@ -20,6 +20,8 @@ def ranker(category: str):
     # Convert the dictionary to a JSON string
     with open('rankings/'+category+'_rankings.json', 'w') as outfile:
         json.dump(json_object, outfile, indent=4)
+    print("Rankings created for " + category + "!")
+
 
 
 

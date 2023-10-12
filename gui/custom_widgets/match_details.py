@@ -50,53 +50,53 @@ class MatchDetails(ctk.CTkFrame):
 
     def place_auto(self):
         self.top_cubes_auto = ctk.CTkLabel(self, text=f"Top Cubes: {self.raw_scores[0][0]}")
-        self.top_cubes_auto.grid(row=0, column=0, sticky="nw", padx=10, pady=(3, 1))
+        self.top_cubes_auto.grid(row=0, column=0, sticky="nw", padx=10, pady=0)
 
         self.mid_cubes_auto = ctk.CTkLabel(self, text=f"Mid Cubes: {self.raw_scores[0][1]}")
-        self.mid_cubes_auto.grid(row=1, column=0, sticky="nw", padx=10, pady=1)
+        self.mid_cubes_auto.grid(row=1, column=0, sticky="nw", padx=10, pady=0)
 
         self.top_cones_auto = ctk.CTkLabel(self, text=f"Top Cones: {self.raw_scores[0][2]}")
-        self.top_cones_auto.grid(row=0, column=1, sticky="nw", padx=10, pady=1)
+        self.top_cones_auto.grid(row=0, column=1, sticky="nw", padx=10, pady=0)
 
         self.mid_cones_auto = ctk.CTkLabel(self, text=f"Mid Cones: {self.raw_scores[0][3]}")
-        self.mid_cones_auto.grid(row=1, column=1, sticky="nw", padx=10, pady=1)
+        self.mid_cones_auto.grid(row=1, column=1, sticky="nw", padx=10, pady=0)
 
         self.hybrid_auto = ctk.CTkLabel(self, text=f"Hybrid: {self.raw_scores[0][4]}")
-        self.hybrid_auto.grid(row=2, column=0, sticky="nw", padx=10, pady=1)
+        self.hybrid_auto.grid(row=2, column=0, sticky="nw", padx=10, pady=0)
 
         self.docked_auto = ctk.CTkLabel(self, text=f"Docked: {self.raw_scores[0][5]}")
-        self.docked_auto.grid(row=2, column=1, sticky="nw", padx=10, pady=1)
+        self.docked_auto.grid(row=2, column=1, sticky="nw", padx=10, pady=0)
 
         self.engaged_auto = ctk.CTkLabel(self, text=f"Engaged: {self.raw_scores[0][6]}")
-        self.engaged_auto.grid(row=3, column=0, sticky="nw", padx=10, pady=1)
+        self.engaged_auto.grid(row=3, column=0, sticky="nw", padx=10, pady=0)
 
         self.exited_auto = ctk.CTkLabel(self, text=f"Exited: {self.raw_scores[0][7]}")
-        self.exited_auto.grid(row=3, column=1, sticky="nw", padx=10, pady=1)
+        self.exited_auto.grid(row=3, column=1, sticky="nw", padx=10, pady=0)
 
     def place_teleop(self):
         self.top_cubes_teleop = ctk.CTkLabel(self, text=f"Top Cubes: {self.raw_scores[1][0]}")
-        self.top_cubes_teleop.grid(row=5, column=0, sticky="nw", padx=10, pady=1)
+        self.top_cubes_teleop.grid(row=5, column=0, sticky="nw", padx=10, pady=0)
 
         self.mid_cubes_teleop = ctk.CTkLabel(self, text=f"Mid Cubes: {self.raw_scores[1][1]}")
-        self.mid_cubes_teleop.grid(row=5, column=1, sticky="nw", padx=10, pady=1)
+        self.mid_cubes_teleop.grid(row=5, column=1, sticky="nw", padx=10, pady=0)
 
         self.top_cones_teleop = ctk.CTkLabel(self, text=f"Top Cones: {self.raw_scores[1][2]}")
-        self.top_cones_teleop.grid(row=6, column=0, sticky="nw", padx=10, pady=1)
+        self.top_cones_teleop.grid(row=6, column=0, sticky="nw", padx=10, pady=0)
 
         self.mid_cones_teleop = ctk.CTkLabel(self, text=f"Mid Cones: {self.raw_scores[1][3]}")
-        self.mid_cones_teleop.grid(row=6, column=1, sticky="nw", padx=10, pady=1)
+        self.mid_cones_teleop.grid(row=6, column=1, sticky="nw", padx=10, pady=0)
 
         self.hybrid_teleop = ctk.CTkLabel(self, text=f"Hybrid: {self.raw_scores[1][4]}")
-        self.hybrid_teleop.grid(row=7, column=0, sticky="nw", padx=10, pady=1)
+        self.hybrid_teleop.grid(row=7, column=0, sticky="nw", padx=10, pady=0)
 
         self.docked_teleop = ctk.CTkLabel(self, text=f"Docked: {self.raw_scores[1][5]}")
-        self.docked_teleop.grid(row=7, column=1, sticky="nw", padx=10, pady=1)
+        self.docked_teleop.grid(row=7, column=1, sticky="nw", padx=10, pady=0)
 
         self.engaged_teleop = ctk.CTkLabel(self, text=f"Engaged: {self.raw_scores[1][6]}")
-        self.engaged_teleop.grid(row=8, column=0, sticky="nw", padx=10, pady=1)
+        self.engaged_teleop.grid(row=8, column=0, sticky="nw", padx=10, pady=0)
 
         self.parked_teleop = ctk.CTkLabel(self, text=f"Parked: {self.raw_scores[1][7]}")
-        self.parked_teleop.grid(row=8, column=1, sticky="nw", padx=10, pady=1)
+        self.parked_teleop.grid(row=8, column=1, sticky="nw", padx=10, pady=0)
 
     def place_endgame(self):
         self.sustainable_endgame = ctk.CTkLabel(self, text=f"Sustainable Bonus: {self.raw_scores[2][0]}")

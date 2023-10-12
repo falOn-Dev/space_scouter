@@ -1,6 +1,7 @@
 #from gui.input_gui import App
 from gui.scoring.scoring_home import App
 from gui.main_menu import MainMenu
+import ranking_handler as rh
 
 #values = j.get_value("Auto", "Cubes", "top")
 
@@ -11,6 +12,10 @@ perfect_endgame = [True, True, True, True]
 score_values = [0.15, 0.1, True, False, 0.01, True, True, False]
 
 if __name__ == '__main__':
+
+    rh.ranker("teleop")
+    rh.ranker("auto")
+    rh.ranker("endgame")
 
     app = MainMenu()
     app.mainloop()

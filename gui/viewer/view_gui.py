@@ -1,10 +1,12 @@
 import json
 import os
+import csv
 
 import customtkinter as ctk
 
 from gui.custom_widgets.match_info import MatchInfo
 from gui.custom_widgets.match_details import MatchDetails
+
 
 
 class ViewerApp(ctk.CTk):
@@ -27,8 +29,11 @@ class ViewerApp(ctk.CTk):
         self.matches_frame = ctk.CTkScrollableFrame(self)
         self.matches_frame.grid(row=0, column=0, padx=5, pady=10, sticky="nsew")
 
+        self.export_button = ctk.CTkButton(self, text="Export to CSV", command=self.export)
+        self.export_button.grid(row=1, column=0, padx=5, pady=0, sticky="ew", columnspan=2)
+
         self.detail_frame = MatchDetails(self)
-        self.detail_frame.grid(row=0, column=1, padx=5, pady=10, sticky="nsw")
+        self.detail_frame.grid(row=0, column=1, padx=5, pady=10, sticky="nswe")
 
         self.add_scores()
 
@@ -77,3 +82,10 @@ class ViewerApp(ctk.CTk):
         for score in self.scores:
             match = MatchInfo(self.matches_frame, score, self.detail_frame)
             match.grid(sticky="ew", padx=(10, 30), pady=10)
+
+    def export(self):
+        with open("scores/exported_scores.csv", "w", newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(["Team Number", "Auto Rank", "Teleop Rank", "Endgame Rank", "Teleop Score", "Auto Score", "Endgame Score", "Match Number", "File Name"])
+            writer.writerows(self.scores)
+            print("Exported to CSV")
